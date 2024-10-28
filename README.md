@@ -4,9 +4,9 @@
 
 
 ## Twofolds
-Genre: Roguelike Deckbuilder
+Genre: Card Battler
 <br>
-Twofolds is a Rogulike Deckbuilder game that features double sided cards. The player can build their decks by obtaining cards from defeated opponents. Choose between the two paths to take, and defeat the boss at the end of the path.
+Twofolds is a Card Battler game that features double sided cards. Play cards until you or your opponent's health goes to zero
 <br>
 (This Project is currently under development)
 
