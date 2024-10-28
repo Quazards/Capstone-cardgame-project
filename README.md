@@ -29,6 +29,8 @@ Genre: Roguelike Deckbuilder
 
 <br>
 
+##   📋 Project Info
+
 | **Role** | **Name** | **Development Time** 
 |:-|:-|:-|
 | Game Programmer - Combat logic | Muhammad Dzaky Radithya Nugroho | 1 Week |
