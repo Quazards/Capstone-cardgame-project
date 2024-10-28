@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7113b6c0abbb02049aee93a8a47489cb, type: 3}
   m_Name: Roger Petukangan
   m_EditorClassIdentifier: 
-  <card_Name>k__BackingField: Roger Jaksel
-  <left_Number>k__BackingField: 1
-  <right_Number>k__BackingField: 9
-  <Image>k__BackingField: {fileID: 350564406773261644, guid: 1b8808d92ca5f004d98cfdad5ef8f7e7, type: 3}
+  <card_Name>k__BackingField: RJ
+  <front_Number>k__BackingField: 9
+  <back_Number>k__BackingField: 1
+  <front_Image>k__BackingField: {fileID: -4583400091800727721, guid: 0f9ee588ef7c34744b0b336fc5785ef3, type: 3}
+  <back_Image>k__BackingField: {fileID: -4583400091800727721, guid: 0f9ee588ef7c34744b0b336fc5785ef3, type: 3}
+  <front_Type>k__BackingField: 0
+  <back_Type>k__BackingField: 1
+  <card_Ownership>k__BackingField: 0

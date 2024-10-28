@@ -6,6 +6,13 @@ TagManager:
   tags:
   - CardCanvas
   - Hand
+  - PlayArea
+  - PlayingCard
+  - EnemyArea
+  - PlayerCardSlot
+  - EnemyCardSlot
+  - EnemyCardHolder
+  - PlayerCardHolder
   layers:
   - Default
   - TransparentFX
@@ -13,7 +20,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - CardLayer
   - 
   - 
   - 
