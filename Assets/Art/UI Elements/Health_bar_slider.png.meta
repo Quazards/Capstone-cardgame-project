@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Health_bar_slider_0: 734795367111313888
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

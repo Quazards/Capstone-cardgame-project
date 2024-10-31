@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Keter EP5 4_0: 7585401202224348391
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

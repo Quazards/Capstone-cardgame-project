@@ -128,13 +128,6 @@ public class TurnSystem : MonoBehaviour
         playArea.playerCardsInPlay.Clear();
     }
 
-    //private IEnumerator ForcePlayCards(int time)
-    //{
-    //    playArea.PlayAllCards();
-    //    yield return new WaitForSeconds(time);
-    //}
-
-    //for testing
     private IEnumerator EnemyTurnSimulation(int time)
     {
         yield return new WaitForSeconds(time);

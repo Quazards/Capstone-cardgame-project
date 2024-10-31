@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      limbus company logo_0: -5151324857947248564
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

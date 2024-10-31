@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Yesod EP5 1-2_0: 350564406773261644
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

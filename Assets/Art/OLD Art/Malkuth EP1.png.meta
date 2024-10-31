@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Malkuth EP1_0: 2747135728840698598
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

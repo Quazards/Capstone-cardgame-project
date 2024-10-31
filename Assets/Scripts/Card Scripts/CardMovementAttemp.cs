@@ -23,6 +23,7 @@ public class CardMovementAttemp : MonoBehaviour, IPointerEnterHandler, IPointerE
     private GameObject playArea;
     private float random;
     private bool isPointerOverCard = false;
+
     public GameObject hoveredObject;
     public TurnSystem turnSystem;
 

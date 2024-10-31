@@ -69,7 +69,7 @@ public class PlayAreaManager : MonoBehaviour
         if (collision.CompareTag("PlayingCard"))
         {
             CardMovementAttemp card = collision.GetComponent<CardMovementAttemp>();
-            if (card != null)
+            if (card.card != null)
             {
                 if (!card.hasFlipped)
                 {
@@ -81,8 +81,12 @@ public class PlayAreaManager : MonoBehaviour
                         playerCardsInPlay.Add(card);
                     }
                 }
-             
             }
+            else
+            {
+              return;
+            }
+            
 
             if (cardsInPlayArea.Count >= 1 && !hasPlayed)
             {
