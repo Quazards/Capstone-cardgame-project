@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "cardPile")]
+[CreateAssetMenu(menuName = "Cards/Card List")]
 public class CardPile : ScriptableObject
 {
     [field:SerializeField] public List<ScriptableCard> cardsInPile {  get; private set; }

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8b14cddc31ecf24d8399ca2732a3626, type: 3}
+  m_Name: All Enemy Stats Collection
+  m_EditorClassIdentifier: 
+  <card_Name>k__BackingField: 
+  <front_Number>k__BackingField: 0
+  <back_Number>k__BackingField: 0
+  <front_Image>k__BackingField: {fileID: 0}
+  <back_Image>k__BackingField: {fileID: 0}
+  <front_Type>k__BackingField: 0
+  <back_Type>k__BackingField: 0
+  <card_Ownership>k__BackingField: 0
+  AllEnemy:
+  - {fileID: 11400000, guid: efc9bc71960f6cc4b9f1a0fb6423355e, type: 2}

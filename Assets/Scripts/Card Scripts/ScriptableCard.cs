@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Card Data")]
+[CreateAssetMenu(menuName = "Cards/Card Data")]
 public class ScriptableCard : ScriptableObject
 {
     [field: SerializeField] public string card_Name {  get; private set; }
@@ -15,22 +15,4 @@ public class ScriptableCard : ScriptableObject
     [field: SerializeField] public CardOwnership card_Ownership { get; private set; }
 
 
-}
-
-public enum CardType
-{
-    Attack,
-    Defend
-}
-
-public enum CardPosition
-{
-    Up,
-    Down
-}
-
-public enum CardOwnership
-{
-    Player,
-    Enemy
 }

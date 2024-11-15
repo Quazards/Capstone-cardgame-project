@@ -58,8 +58,8 @@ public class TurnSystem : MonoBehaviour
     {
         if (turnStart)
         {
-            playerDeck.TurnStartDraw(1);
-            enemyDeck.TurnStartDraw(1);
+            playerDeck.TurnStartDraw();
+            enemyDeck.TurnStartDraw();
             turnStart = false;
             Debug.Log("turn start");
         }
@@ -94,14 +94,20 @@ public class TurnSystem : MonoBehaviour
 
     private void PlayerMatchStart()
     {
+
         playerDeck.InstantiateDeck();
-        playerDeck.TurnStartDraw(3);
+
+        playerDeck.drawAmount += 2;
+
+        playerDeck.TurnStartDraw();
+
+        playerDeck.drawAmount -= 2;
     }
 
     private void EnemyMatchStart()
     {
         enemyDeck.InstantiateDeck();
-        enemyDeck.TurnStartDraw(1);
+        enemyDeck.TurnStartDraw();
     }
     
     private void EndTurnDiscard()

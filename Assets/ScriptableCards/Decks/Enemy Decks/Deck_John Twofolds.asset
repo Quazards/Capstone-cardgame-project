@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6211b795c7e450044918d9a286ca8820, type: 3}
-  m_Name: EnemyDeck
+  m_Name: Deck_John Twofolds
   m_EditorClassIdentifier: 
   <cardsInPile>k__BackingField:
   - {fileID: 11400000, guid: 17af7c5c5779a5048afc8a5de28d5350, type: 2}
-  - {fileID: 11400000, guid: 17af7c5c5779a5048afc8a5de28d5350, type: 2}
+  - {fileID: 11400000, guid: 864ef4eebf8919343b9d06f0af6692b4, type: 2}
+  - {fileID: 11400000, guid: 864ef4eebf8919343b9d06f0af6692b4, type: 2}

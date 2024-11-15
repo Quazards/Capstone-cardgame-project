@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Dantehh
   m_EditorClassIdentifier: 
   <card_Name>k__BackingField: Dantehh
-  <front_Number>k__BackingField: 9
-  <back_Number>k__BackingField: 9
+  <front_Number>k__BackingField: 8
+  <back_Number>k__BackingField: 8
   <front_Image>k__BackingField: {fileID: -4583400091800727721, guid: 0f9ee588ef7c34744b0b336fc5785ef3, type: 3}
   <back_Image>k__BackingField: {fileID: -4583400091800727721, guid: 0f9ee588ef7c34744b0b336fc5785ef3, type: 3}
   <front_Type>k__BackingField: 0

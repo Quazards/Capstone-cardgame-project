@@ -5,10 +5,12 @@ using TMPro;
 
 public class Deck : MonoBehaviour
 {
-    [SerializeField] private CardPile currentDeck;
+    public CardPile currentDeck;
     [SerializeField] private Card cardPrefab;
     [SerializeField] private Canvas cardCanvas;
     private TurnSystem turnSystem;
+
+    public int drawAmount = 1;
 
     public List<Card> deckPile = new();
     public List<Card> discardPile = new();
@@ -18,13 +20,6 @@ public class Deck : MonoBehaviour
     private void Start()
     {
         turnSystem = TurnSystem.Instance;
-        //InstantiateDeck();
-        //TurnStartDraw(3);
-    }
-
-    private void Update()
-    {
-
     }
 
     public void InstantiateDeck()
@@ -51,9 +46,9 @@ public class Deck : MonoBehaviour
         }
     }
 
-    public void TurnStartDraw(int value)
+    public void TurnStartDraw()
     {
-            for (int i = 0; i < value; i++)
+            for (int i = 0; i < drawAmount; i++)
             {
                 if (deckPile.Count == 0 && discardPile.Count != 0)
                 {
@@ -102,7 +97,7 @@ public class Deck : MonoBehaviour
     {
         if(TurnSystem.Instance.currentEnergy >= 1)
         {
-            TurnStartDraw(1);
+            TurnStartDraw();
             TurnSystem.Instance.currentEnergy -= 1;
         }
         else
