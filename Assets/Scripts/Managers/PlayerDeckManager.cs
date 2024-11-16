@@ -57,7 +57,6 @@ public class PlayerDeckManager : MonoBehaviour
         playerDeck.InstantiateDeck();
         playerDeck.drawAmount += startEncounterDraw;
         playerDeck.TurnStartDraw();
-
         playerDeck.drawAmount -= startEncounterDraw;
     }
 
@@ -69,14 +68,12 @@ public class PlayerDeckManager : MonoBehaviour
 
     public void AddCardToDeck(ScriptableCard card)
     {
-        //playerDeck.currentDeck.addCardToPile(card);
         globalDeck.Add(card);
         Debug.Log($"Added {card.card_Name} to player deck.");
     }
 
     public void RemoveCardFromDeck(ScriptableCard card)
     {
-        //playerDeck.currentDeck.removeCardFromPile(card);
         globalDeck.Remove(card);
         Debug.Log($"Removed {card.card_Name} from player deck.");
     }

@@ -92,6 +92,7 @@ public class EnemyCollectionManager : MonoBehaviour
             int newMaxHealth = selectedEnemyStat.maxHealth;
             enemyHealth.SetEnemyMaxHealth(newMaxHealth);
 
+            enemyDeck.ClearAll();
             enemyDeck.currentDeck = selectedEnemyStat.deckList;
             enemyDeck.drawAmount = selectedEnemyStat.enemyDrawAmount;
 

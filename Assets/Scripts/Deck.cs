@@ -24,7 +24,15 @@ public class Deck : MonoBehaviour
 
     public void ClearAll()
     {
-        foreach (Card card in deckPile)
+        foreach (var card in deckPile)
+        {
+            Destroy(card.gameObject);
+        }
+        foreach (var card in discardPile)
+        {
+            Destroy(card.gameObject);
+        }
+        foreach (var card in handPile)
         {
             Destroy(card.gameObject);
         }

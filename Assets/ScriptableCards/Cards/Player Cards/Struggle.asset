@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Struggle
   m_EditorClassIdentifier: 
   <card_Name>k__BackingField: Struggle
-  <front_Number>k__BackingField: 8
-  <back_Number>k__BackingField: 4
+  <front_Number>k__BackingField: 9
+  <back_Number>k__BackingField: 5
   <front_Image>k__BackingField: {fileID: 6394565795907760271, guid: f27f1dd793668d4499127b673e3e3d66, type: 3}
   <back_Image>k__BackingField: {fileID: 6394565795907760271, guid: f27f1dd793668d4499127b673e3e3d66, type: 3}
   <front_Type>k__BackingField: 1

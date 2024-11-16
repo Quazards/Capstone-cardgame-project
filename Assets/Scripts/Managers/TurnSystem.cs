@@ -87,11 +87,14 @@ public class TurnSystem : MonoBehaviour
     {
         Debug.Log($"Phase switched to {currentPhase}");
 
+        if(!playArea.enemyHasEntered)
+        {
+            playArea.PlayEnemyCards();
+        }
+
         if (!playArea.hasPlayed && playArea.cardsInPlayArea.Count > 0)
         {
-
             playArea.PlayAllCards();
-
         }
 
         isMyTurn = false;
@@ -108,6 +111,7 @@ public class TurnSystem : MonoBehaviour
         currentEnergy = startEnergy;
         turnCount += 1;
         playArea.hasPlayed = false;
+        playArea.enemyHasEntered = false;
 
         playerDeck.TurnStartDraw();
         enemyDeck.TurnStartDraw();

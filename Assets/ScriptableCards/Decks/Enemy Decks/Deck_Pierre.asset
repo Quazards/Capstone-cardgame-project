@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6211b795c7e450044918d9a286ca8820, type: 3}
+  m_Name: Deck_Pierre
+  m_EditorClassIdentifier: 
+  <cardsInPile>k__BackingField:
+  - {fileID: 11400000, guid: 6d49b6219550914429f7a5d775424475, type: 2}
+  - {fileID: 11400000, guid: 7ecb6b1c6c496174e9eef7c3d38cfb1b, type: 2}
+  - {fileID: 11400000, guid: 7ecb6b1c6c496174e9eef7c3d38cfb1b, type: 2}
+  - {fileID: 11400000, guid: 6d49b6219550914429f7a5d775424475, type: 2}
+  - {fileID: 11400000, guid: 7ecb6b1c6c496174e9eef7c3d38cfb1b, type: 2}
+  - {fileID: 11400000, guid: 4d3b369889268784d8e883cc93a6315c, type: 2}
+  - {fileID: 11400000, guid: 4d3b369889268784d8e883cc93a6315c, type: 2}
+  - {fileID: 11400000, guid: 4d3b369889268784d8e883cc93a6315c, type: 2}

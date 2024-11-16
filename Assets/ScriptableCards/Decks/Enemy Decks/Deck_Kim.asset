@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6211b795c7e450044918d9a286ca8820, type: 3}
+  m_Name: Deck_Kim
+  m_EditorClassIdentifier: 
+  <cardsInPile>k__BackingField:
+  - {fileID: 11400000, guid: 383040c51dcce514f886b6f88b4bd823, type: 2}
+  - {fileID: 11400000, guid: 383040c51dcce514f886b6f88b4bd823, type: 2}
+  - {fileID: 11400000, guid: 2383d9d4b89332544984bf619a378589, type: 2}
+  - {fileID: 11400000, guid: 66c956a51e321c747977c49069cc3fc9, type: 2}
+  - {fileID: 11400000, guid: cc207f8e56083e440ba3a80057e71d50, type: 2}
+  - {fileID: 11400000, guid: cc207f8e56083e440ba3a80057e71d50, type: 2}
+  - {fileID: 11400000, guid: cc207f8e56083e440ba3a80057e71d50, type: 2}
+  - {fileID: 11400000, guid: 2383d9d4b89332544984bf619a378589, type: 2}
+  - {fileID: 11400000, guid: 2383d9d4b89332544984bf619a378589, type: 2}
+  - {fileID: 11400000, guid: 2383d9d4b89332544984bf619a378589, type: 2}

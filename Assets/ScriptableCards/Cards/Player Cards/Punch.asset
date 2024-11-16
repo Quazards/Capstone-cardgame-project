@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7113b6c0abbb02049aee93a8a47489cb, type: 3}
-  m_Name: All In
+  m_Name: Punch
   m_EditorClassIdentifier: 
-  <card_Name>k__BackingField: All In
-  <front_Number>k__BackingField: 14
+  <card_Name>k__BackingField: Punch
+  <front_Number>k__BackingField: 7
   <back_Number>k__BackingField: 3
-  <front_Image>k__BackingField: {fileID: -2561532944257487562, guid: af4445c1f70dc9c4f8c587b0662c5b43, type: 3}
-  <back_Image>k__BackingField: {fileID: -2561532944257487562, guid: af4445c1f70dc9c4f8c587b0662c5b43, type: 3}
+  <front_Image>k__BackingField: {fileID: 6394565795907760271, guid: f27f1dd793668d4499127b673e3e3d66, type: 3}
+  <back_Image>k__BackingField: {fileID: 6394565795907760271, guid: f27f1dd793668d4499127b673e3e3d66, type: 3}
   <front_Type>k__BackingField: 0
   <back_Type>k__BackingField: 0
   <card_Ownership>k__BackingField: 0
-  <card_Rarity>k__BackingField: 2
+  <card_Rarity>k__BackingField: 1

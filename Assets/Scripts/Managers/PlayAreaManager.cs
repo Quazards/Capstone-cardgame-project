@@ -18,6 +18,7 @@ public class PlayAreaManager : MonoBehaviour
     private Deck enemyDeck;
 
     public bool hasPlayed = false;
+    public bool enemyHasEntered = false;
 
     //Card Holders
     [SerializeField] Transform playerCardHolder;
@@ -174,9 +175,8 @@ public class PlayAreaManager : MonoBehaviour
                 }
             }
         }
+
+        enemyHasEntered = true;
     }
-
-
-
 
 }
