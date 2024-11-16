@@ -24,6 +24,8 @@ public class Deck : MonoBehaviour
 
     public void InstantiateDeck()
     {
+        if (currentDeck == null) return;
+
         for(int i = 0; i < currentDeck.cardsInPile.Count; i++)
         {
             Card card = Instantiate(cardPrefab, cardCanvas.transform);

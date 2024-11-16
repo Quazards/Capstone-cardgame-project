@@ -6,9 +6,9 @@ public class CombatManager : MonoBehaviour
 {
     public static CombatManager Instance { get; private set; }
 
-    public PlayAreaManager playArea;
-    public PlayerHealth playerHealth;
-    public EnemyHealth enemyHealth;
+    [HideInInspector] public PlayAreaManager playArea;
+    [HideInInspector] public PlayerHealth playerHealth;
+    [HideInInspector] public EnemyHealth enemyHealth;
 
     public int playerShield = 0;
     public int enemyShield = 0;
@@ -110,6 +110,11 @@ public class CombatManager : MonoBehaviour
             }
         }
         playerHealth.PlayerTakeDamage(damage);
+
+        if(playerHealth.playerCurrentHealth <= 0)
+        {
+            TurnSystem.Instance.SwitchPhase(CombatPhase.PlayerLose);
+        }
     }
 
     private void DealDamageToEnemy(int damage)
@@ -128,7 +133,17 @@ public class CombatManager : MonoBehaviour
             }
         }
         enemyHealth.EnemyTakeDamage(damage);
+
+        if(enemyHealth.enemyCurrentHealth <= 0)
+        {
+            TurnSystem.Instance.SwitchPhase(CombatPhase.PlayerWin);
+        }
     }
 
-    
+    //for testing
+    public void Kill()
+    {
+        int damage = 1000;
+        DealDamageToEnemy(damage);
+    }
 }

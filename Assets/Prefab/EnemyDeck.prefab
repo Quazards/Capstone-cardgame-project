@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2061519085721894249}
   m_Layer: 0
   m_Name: EnemyDeck
-  m_TagString: Untagged
+  m_TagString: EnemyDeck
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 706de394b8c939e4ab7b91bee787349a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentDeck: {fileID: 11400000, guid: f3c145c98541efb4a956083dfd8a3b8d, type: 2}
+  currentDeck: {fileID: 0}
   cardPrefab: {fileID: 193511305136916404, guid: 97742a8214b4e9d4db258707bc457640, type: 3}
   cardCanvas: {fileID: 0}
+  drawAmount: 1
   deckPile: []
   discardPile: []

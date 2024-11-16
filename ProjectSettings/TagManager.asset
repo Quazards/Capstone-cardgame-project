@@ -13,6 +13,8 @@ TagManager:
   - EnemyCardSlot
   - EnemyCardHolder
   - PlayerCardHolder
+  - EnemyDeck
+  - EnemyHealth
   layers:
   - Default
   - TransparentFX

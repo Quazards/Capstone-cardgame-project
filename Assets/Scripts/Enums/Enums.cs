@@ -29,3 +29,15 @@ public enum EnemyType
 }
 
 #endregion
+
+#region Other
+
+public enum CombatPhase
+{
+    TurnStart,
+    TurnEnd,
+    PlayerWin,
+    PlayerLose
+}
+
+#endregion

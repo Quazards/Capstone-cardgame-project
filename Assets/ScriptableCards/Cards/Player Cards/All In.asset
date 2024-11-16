@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7113b6c0abbb02049aee93a8a47489cb, type: 3}
-  m_Name: Roger Petukangan
+  m_Name: All In
   m_EditorClassIdentifier: 
-  <card_Name>k__BackingField: RJ
-  <front_Number>k__BackingField: 9
+  <card_Name>k__BackingField: All In
+  <front_Number>k__BackingField: 12
   <back_Number>k__BackingField: 1
-  <front_Image>k__BackingField: {fileID: -4583400091800727721, guid: 0f9ee588ef7c34744b0b336fc5785ef3, type: 3}
-  <back_Image>k__BackingField: {fileID: -4583400091800727721, guid: 0f9ee588ef7c34744b0b336fc5785ef3, type: 3}
+  <front_Image>k__BackingField: {fileID: -2561532944257487562, guid: af4445c1f70dc9c4f8c587b0662c5b43, type: 3}
+  <back_Image>k__BackingField: {fileID: -2561532944257487562, guid: af4445c1f70dc9c4f8c587b0662c5b43, type: 3}
   <front_Type>k__BackingField: 0
-  <back_Type>k__BackingField: 1
+  <back_Type>k__BackingField: 0
   <card_Ownership>k__BackingField: 0

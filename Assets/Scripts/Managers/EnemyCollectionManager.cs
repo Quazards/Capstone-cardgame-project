@@ -27,6 +27,9 @@ public class EnemyCollectionManager : MonoBehaviour
         {
             Instance = this;
         }
+
+        enemyDeck = GameObject.FindGameObjectWithTag("EnemyDeck").GetComponent<Deck>();
+        enemyHealth = GameObject.FindGameObjectWithTag("EnemyHealth").GetComponent<EnemyHealth>();
     }
 
     public void AddEnemyStats()
@@ -48,9 +51,10 @@ public class EnemyCollectionManager : MonoBehaviour
                     break;
             }
         }
+
     }
 
-    public EnemyStats GetRandomEnemyStat(EnemyType enemyType)
+    private EnemyStats GetRandomEnemyStat(EnemyType enemyType)
     {
         List<EnemyStats> selectedList = null;
 
@@ -67,29 +71,33 @@ public class EnemyCollectionManager : MonoBehaviour
                 break;
         }
 
-        if(selectedList != null && selectedList.Count > 0)
+        if (selectedList != null && selectedList.Count > 0)
         {
             int randomIndex = Random.Range(0, selectedList.Count);
+
             return selectedList[randomIndex];
         }
-        else 
+        else
+        {
             return null;
+        }
     }
 
-    private void AssignEnemyStat(EnemyType enemyType)
+    public void AssignEnemyStat(EnemyType enemyType)
     {
         EnemyStats selectedEnemyStat =  GetRandomEnemyStat(enemyType);
 
         if(selectedEnemyStat != null)
         {
-            enemyHealth.SetEnemyMaxHealth(selectedEnemyStat.maxHealth);
+            int newMaxHealth = selectedEnemyStat.maxHealth;
+            enemyHealth.SetEnemyMaxHealth(newMaxHealth);
 
             enemyDeck.currentDeck = selectedEnemyStat.deckList;
             enemyDeck.drawAmount = selectedEnemyStat.enemyDrawAmount;
 
-            enemyDeck.InstantiateDeck();
+            //enemyDeck.InstantiateDeck();
 
-            Debug.Log($"Assigned {selectedEnemyStat.enemyType} with max health: {selectedEnemyStat.maxHealth}");
+            Debug.Log($"Assigned {selectedEnemyStat.enemyType} with max health: {selectedEnemyStat.maxHealth} and decklist: {selectedEnemyStat.deckList}");
         }
         else
             Debug.LogWarning("No enemy stats available for the selected type.");

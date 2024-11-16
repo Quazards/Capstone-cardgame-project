@@ -7,6 +7,8 @@ public class TurnSystem : MonoBehaviour
 {
     public static TurnSystem Instance { get; private set; }
 
+    private CombatPhase currentPhase;
+
     public bool isMyTurn;
     public bool turnStart = false;
 
@@ -40,38 +42,45 @@ public class TurnSystem : MonoBehaviour
     {
         combatManager = CombatManager.Instance;
 
-
-        PlayerMatchStart();
-        EnemyMatchStart();
-
         isMyTurn = true;
         startEnergy = maxEnergy;
         currentEnergy = startEnergy;
         
-        if(isMyTurn)
-        {
-            Debug.Log("This is my turn");
-        }
     }
 
     private void Update()
     {
-        if (turnStart)
-        {
-            playerDeck.TurnStartDraw();
-            enemyDeck.TurnStartDraw();
-            turnStart = false;
-            Debug.Log("turn start");
-        }
-
         //texts
         energyText.text = currentEnergy + "/" + startEnergy;
         playerDeckCountText.text = playerDeck.deckPile.Count.ToString();
         playerDiscardCountText.text = playerDeck.discardPile.Count.ToString();
     }
 
-    public void EndTurn()
+    public void SwitchPhase(CombatPhase newPhase)
     {
+        currentPhase = newPhase;
+
+        switch(currentPhase)
+        {
+            case CombatPhase.TurnStart:
+                TurnStartPhase();
+                break;
+            case CombatPhase.TurnEnd:
+                TurnEndPhase();
+                break;
+            case CombatPhase.PlayerWin:
+                PlayerWinPhase();
+                break;
+            case CombatPhase.PlayerLose:
+                PlayerLosePhase();
+                break;
+        }
+    }
+
+    public void TurnEndPhase()
+    {
+        Debug.Log($"Phase switched to {currentPhase}");
+
         if (!playArea.hasPlayed && playArea.cardsInPlayArea.Count > 0)
         {
 
@@ -80,35 +89,45 @@ public class TurnSystem : MonoBehaviour
         }
 
         isMyTurn = false;
-        StartCoroutine(EnemyTurnSimulation(1));
+        StartCoroutine(SimulateEndTurn(0.5f));
     }
 
-    public void StartTurn()
+    public void TurnStartPhase()
     {
+        Debug.Log($"Phase switched to {currentPhase}");
+
         isMyTurn = true;
+
         turnStart = true;
+
         currentEnergy = startEnergy;
+
         turnCount += 1;
+
         playArea.hasPlayed = false;
-    }
-
-    private void PlayerMatchStart()
-    {
-
-        playerDeck.InstantiateDeck();
-
-        playerDeck.drawAmount += 2;
 
         playerDeck.TurnStartDraw();
 
-        playerDeck.drawAmount -= 2;
-    }
-
-    private void EnemyMatchStart()
-    {
-        enemyDeck.InstantiateDeck();
         enemyDeck.TurnStartDraw();
     }
+
+    public void PlayerWinPhase()
+    {
+        Debug.Log($"Phase switched to {currentPhase}");
+
+        RewardManager.Instance.ShowRewardScreen();
+    }
+
+    public void PlayerLosePhase()
+    {
+        Debug.Log($"Phase switched to {currentPhase}");
+    }
+
+    public void EndTurnButton()
+    {
+        SwitchPhase(CombatPhase.TurnEnd);
+    }
+
     
     private void EndTurnDiscard()
     {
@@ -134,11 +153,15 @@ public class TurnSystem : MonoBehaviour
         playArea.playerCardsInPlay.Clear();
     }
 
-    private IEnumerator EnemyTurnSimulation(int time)
+    private IEnumerator SimulateEndTurn(float time)
     {
         yield return new WaitForSeconds(time);
         combatManager.CalculateDamage();
+        yield return new WaitForSeconds(time);
+        
+        //WinLoseManager.Instance.CheckWinLoseCondition();
+
         EndTurnDiscard();
-        StartTurn();
+        SwitchPhase(CombatPhase.TurnStart);
     }
 }
