@@ -41,10 +41,6 @@ public class TurnSystem : MonoBehaviour
     private void Start()
     {
         combatManager = CombatManager.Instance;
-
-        isMyTurn = true;
-        startEnergy = maxEnergy;
-        currentEnergy = startEnergy;
         
     }
 
@@ -74,7 +70,17 @@ public class TurnSystem : MonoBehaviour
             case CombatPhase.PlayerLose:
                 PlayerLosePhase();
                 break;
+            case CombatPhase.CombatStart:
+                CombatStartPhase();
+                break;
         }
+    }
+
+    public void CombatStartPhase()
+    {
+        isMyTurn = true;
+        startEnergy = maxEnergy;
+        currentEnergy = startEnergy;
     }
 
     public void TurnEndPhase()
@@ -97,17 +103,13 @@ public class TurnSystem : MonoBehaviour
         Debug.Log($"Phase switched to {currentPhase}");
 
         isMyTurn = true;
-
         turnStart = true;
 
         currentEnergy = startEnergy;
-
         turnCount += 1;
-
         playArea.hasPlayed = false;
 
         playerDeck.TurnStartDraw();
-
         enemyDeck.TurnStartDraw();
     }
 
@@ -115,6 +117,7 @@ public class TurnSystem : MonoBehaviour
     {
         Debug.Log($"Phase switched to {currentPhase}");
 
+        PlayerDeckManager.Instance.PlayerEndEncounter();
         RewardManager.Instance.ShowRewardScreen();
     }
 

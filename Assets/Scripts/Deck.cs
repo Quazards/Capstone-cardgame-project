@@ -22,6 +22,18 @@ public class Deck : MonoBehaviour
         turnSystem = TurnSystem.Instance;
     }
 
+    public void ClearAll()
+    {
+        foreach (Card card in deckPile)
+        {
+            Destroy(card.gameObject);
+        }
+
+        deckPile.Clear();
+        discardPile.Clear();
+        handPile.Clear();
+    }
+
     public void InstantiateDeck()
     {
         if (currentDeck == null) return;

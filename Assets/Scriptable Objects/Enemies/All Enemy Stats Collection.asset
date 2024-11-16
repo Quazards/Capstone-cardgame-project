@@ -12,13 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b14cddc31ecf24d8399ca2732a3626, type: 3}
   m_Name: All Enemy Stats Collection
   m_EditorClassIdentifier: 
-  <card_Name>k__BackingField: 
-  <front_Number>k__BackingField: 0
-  <back_Number>k__BackingField: 0
-  <front_Image>k__BackingField: {fileID: 0}
-  <back_Image>k__BackingField: {fileID: 0}
-  <front_Type>k__BackingField: 0
-  <back_Type>k__BackingField: 0
-  <card_Ownership>k__BackingField: 0
   AllEnemy:
   - {fileID: 11400000, guid: efc9bc71960f6cc4b9f1a0fb6423355e, type: 2}
+  - {fileID: 11400000, guid: 23d989fe58f68b94d86b2ce1dc48a68b, type: 2}

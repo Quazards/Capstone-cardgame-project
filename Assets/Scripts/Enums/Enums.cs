@@ -17,6 +17,13 @@ public enum CardOwnership
     Enemy
 }
 
+public enum CardRarity
+{
+    Common,
+    Uncommon,
+    Rare
+}
+
 #endregion
 
 #region Enemy Enums
@@ -37,7 +44,8 @@ public enum CombatPhase
     TurnStart,
     TurnEnd,
     PlayerWin,
-    PlayerLose
+    PlayerLose,
+    CombatStart
 }
 
 #endregion

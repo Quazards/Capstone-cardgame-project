@@ -16,9 +16,11 @@ public class RewardManager : MonoBehaviour
 
     [SerializeField] private GameObject buttonPrefab;
 
-    [SerializeField] private Transform cardContainer;
+    [SerializeField] private List<Transform> rewardParents; 
 
-    private List<ScriptableCard> rewardCards = new List<ScriptableCard>();
+    [Range(0, 100)] public int commonChance = 70;
+    [Range(0, 100)] public int uncommonChance = 28;
+    [Range(0, 100)] public int rareChance = 2;
 
     public int cardRewardAmount = 3;
 
@@ -43,65 +45,124 @@ public class RewardManager : MonoBehaviour
     {
         rewardCanvas.enabled = true;
 
-        foreach(Transform child in cardContainer)
-        {
-            Destroy(child.gameObject);
-        }
-
-        rewardCards = GetRandomCards(allCards, cardRewardAmount);
-
-        foreach (ScriptableCard card in rewardCards)
-        {
-            GameObject cardButton = CreateCardButton(card);
-            cardButton.transform.SetParent(cardContainer, false);
-        }
-
         skipButton.gameObject.SetActive(true);
+        skipButton.onClick.RemoveAllListeners();
+        skipButton.onClick.AddListener(OnSkipButtonPressed);
 
+        GenerateCardRewards();
     }
 
-    private GameObject CreateCardButton(ScriptableCard card)
+    private void GenerateCardRewards()
     {
-        GameObject buttonInstance = Instantiate(buttonPrefab, cardContainer);
-        Button buttonComponent = buttonInstance.GetComponent<Button>();
-        TextMeshProUGUI buttonText = buttonInstance.GetComponentInChildren<TextMeshProUGUI>();
-
-        buttonText.text = card.card_Name;
-
-        buttonComponent.onClick.AddListener(() => OnCardSelected(card));
-
-        return buttonInstance;
+        List<ScriptableCard> selectedCards = GetRandomCardsByRarity();
+        ShowCardRewards(selectedCards);
     }
 
-    private List<ScriptableCard> GetRandomCards(CardPile allCards, int amount)
+    private List<ScriptableCard> GetRandomCardsByRarity()
     {
-        List<ScriptableCard> randomCards = new List<ScriptableCard>();
 
-        for(int i = 0; i < amount; i++)
+        List<ScriptableCard> selectedCards = new List<ScriptableCard>();
+        int loopCount = 0;
+
+        while (selectedCards.Count < cardRewardAmount)
         {
-            int randomIndex = Random.Range(0, allCards.cardsInPile.Count);
-            randomCards.Add(allCards.cardsInPile[randomIndex]);
+            int rarityRoll = Random.Range(0, 100);
+
+            CardRarity selectedRarity;
+
+            if (rarityRoll < rareChance)
+            {
+                selectedRarity = CardRarity.Rare;
+            }
+            else if (rarityRoll < rareChance + uncommonChance)
+            {
+                selectedRarity = CardRarity.Uncommon;
+            }
+            else
+                selectedRarity = CardRarity.Common;
+
+            List<ScriptableCard> filteredCards = allCards.cardsInPile.FindAll(card => card.card_Rarity == selectedRarity);
+
+            if (filteredCards.Count == 0)
+                continue;
+
+            int randomIndex = Random.Range(0, filteredCards.Count);
+            ScriptableCard selectedCard = filteredCards[randomIndex];
+
+            if (!selectedCards.Contains(selectedCard))
+            {
+                selectedCards.Add(selectedCard);
+            }
+
+            loopCount++;
+            if (loopCount > 5)
+            {
+                Debug.Log("Loop exceeded 5 times");
+                break;
+            }
         }
 
-        return randomCards;
+        foreach (var card in selectedCards)
+        {
+            if (card == null)
+            {
+                Debug.LogError("Null card found in selected cards");
+            }
+        }
+
+
+        return selectedCards;
     }
 
-    public void OnCardSelected(ScriptableCard card )
+    private void ShowCardRewards(List<ScriptableCard> rewardCards)
     {
+        ClearExistingRewards();
+
+
+        for (int i = 0; i < rewardCards.Count; i++)
+        {
+            Transform parent = rewardParents[i % rewardParents.Count];
+            GameObject cardDisplayButton = Instantiate(buttonPrefab, parent);
+
+            CardUI cardUI = cardDisplayButton.GetComponent<CardUI>();
+            cardUI.SetCardData(rewardCards[i]);
+
+            Button button = cardDisplayButton.GetComponent<Button>();
+            int cardIndex = i;
+            button.onClick.AddListener(() => OnCardSelected(rewardCards[cardIndex]));
+        }
+    }
+
+    private void OnCardSelected(ScriptableCard card)
+    {
+
         PlayerDeckManager.Instance.AddCardToDeck(card);
         ProceedToNextEncounter();
     }
 
-    public void OnSkipButtonPressed()
+    private void OnSkipButtonPressed()
     {
+        Debug.Log("Skipped rewards.");
         ProceedToNextEncounter();
     }
 
-    //starts another encounter, can be change to fit needs
     private void ProceedToNextEncounter()
     {
         rewardCanvas.enabled = false;
- 
+
+        ClearExistingRewards();
+
         EncounterManager.Instance.StartCombatEncounter();
+    }
+
+    private void ClearExistingRewards()
+    {
+        foreach (Transform parent in rewardParents)
+        {
+            foreach (Transform child in parent)
+            {
+                Destroy(child.gameObject);
+            }
+        }
     }
 }

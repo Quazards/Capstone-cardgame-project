@@ -95,7 +95,6 @@ public class EnemyCollectionManager : MonoBehaviour
             enemyDeck.currentDeck = selectedEnemyStat.deckList;
             enemyDeck.drawAmount = selectedEnemyStat.enemyDrawAmount;
 
-            //enemyDeck.InstantiateDeck();
 
             Debug.Log($"Assigned {selectedEnemyStat.enemyType} with max health: {selectedEnemyStat.maxHealth} and decklist: {selectedEnemyStat.deckList}");
         }

@@ -13,6 +13,7 @@ public class ScriptableCard : ScriptableObject
     [field: SerializeField] public CardType front_Type { get; private set; }
     [field: SerializeField] public CardType back_Type { get; private set; }
     [field: SerializeField] public CardOwnership card_Ownership { get; private set; }
+    [field: SerializeField] public CardRarity card_Rarity { get; private set; }
 
 
 }

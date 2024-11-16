@@ -24,10 +24,6 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        //SetEnemyMaxHealth(enemyMaxHealth);
-    }
 
     void Update()
     {

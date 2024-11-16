@@ -54,12 +54,12 @@ public class EncounterManager : MonoBehaviour
         EnemyType enemyType = GetEnemyType(encounterCount);
 
         enemyCollectionManager.AssignEnemyStat(enemyType);
-
         enemyCollectionManager.enemyDeck.InstantiateDeck();
-
         enemyCollectionManager.enemyDeck.TurnStartDraw();
 
         PlayerDeckManager.Instance.PlayerStartEncounter();
+
+        TurnSystem.Instance.SwitchPhase(CombatPhase.CombatStart);
     }
 
 }
