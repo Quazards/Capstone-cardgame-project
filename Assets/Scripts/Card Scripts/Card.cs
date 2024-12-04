@@ -33,12 +33,10 @@ public class Card : MonoBehaviour
     {
         if (cardPosition == CardPosition.Up) 
         {
-            Debug.Log($"Card type is: {cardData.front_Type}");
             return cardData.front_Type;
         }
         else
         {
-            Debug.Log($"Card type is: {cardData.back_Type}");
             return cardData.back_Type;
         }
     }    
