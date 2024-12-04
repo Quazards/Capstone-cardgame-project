@@ -24,6 +24,32 @@ public enum CardRarity
     Rare
 }
 
+public enum CardEffectType
+{
+    Energy,
+    Draw,
+    Buff
+}
+
+public enum CardTarget
+{
+    Player,
+    Self,
+    Enemy
+}
+
+public enum CardTriggerTime
+{
+    StartOfTurn,
+    OnActivation
+}
+
+public enum CardTriggerCondition
+{
+    None,
+    AlliedAttackCard
+}
+
 #endregion
 
 #region Enemy Enums

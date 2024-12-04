@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Capstone cardgame.sln"
+    "dotnet.defaultSolution": "TepoKKartu.sln"
 }

@@ -95,9 +95,9 @@ public class RewardManager : MonoBehaviour
             }
 
             loopCount++;
-            if (loopCount > 5)
+            if (loopCount > 10)
             {
-                Debug.Log("Loop exceeded 5 times");
+                Debug.Log("Loop exceeded 10 times");
                 break;
             }
         }
@@ -148,11 +148,12 @@ public class RewardManager : MonoBehaviour
 
     private void ProceedToNextEncounter()
     {
-        rewardCanvas.enabled = false;
+        // rewardCanvas.enabled = false;
 
-        ClearExistingRewards();
-
-        EncounterManager.Instance.StartCombatEncounter();
+        // ClearExistingRewards();
+        DataPersistenceManager.instance.SaveGame();
+        SceneController.Instance.LoadSceneByName("Post-Game Screen");
+        // EncounterManager.Instance.StartCombatEncounter();
     }
 
     private void ClearExistingRewards()

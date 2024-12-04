@@ -15,9 +15,11 @@ MonoBehaviour:
   <card_Name>k__BackingField: T.C.T.B
   <front_Number>k__BackingField: 25
   <back_Number>k__BackingField: 25
-  <front_Image>k__BackingField: {fileID: -2561532944257487562, guid: af4445c1f70dc9c4f8c587b0662c5b43, type: 3}
-  <back_Image>k__BackingField: {fileID: -2561532944257487562, guid: af4445c1f70dc9c4f8c587b0662c5b43, type: 3}
+  <front_Image>k__BackingField: {fileID: -478473386618417641, guid: 5682da3d573e0a849af8a42da0b4d7de, type: 3}
+  <back_Image>k__BackingField: {fileID: -478473386618417641, guid: 5682da3d573e0a849af8a42da0b4d7de, type: 3}
   <front_Type>k__BackingField: 0
   <back_Type>k__BackingField: 0
   <card_Ownership>k__BackingField: 1
   <card_Rarity>k__BackingField: 2
+  card_Effect: []
+  <card_Description>k__BackingField: 

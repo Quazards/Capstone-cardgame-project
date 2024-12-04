@@ -11,8 +11,10 @@ public class PlayAreaManager : MonoBehaviour
 
     [SerializeField] private GameObject flipButton;
     [SerializeField] private GameObject playButton;
-    public List<CardMovementAttemp> cardsInPlayArea = new List<CardMovementAttemp>();
-    public List<CardMovementAttemp> playerCardsInPlay = new List<CardMovementAttemp>();
+
+    public List<Card> cardsInPlayArea = new List<Card>();
+    public List<Card> playerCardsInPlay = new List<Card>();
+    public List<Card> enemyCardsInPlay = new List<Card>();
     
     private TurnSystem turn;
     private Deck enemyDeck;
@@ -69,17 +71,21 @@ public class PlayAreaManager : MonoBehaviour
     {
         if (collision.CompareTag("PlayingCard"))
         {
-            CardMovementAttemp card = collision.GetComponent<CardMovementAttemp>();
-            if (card.card != null)
+            Card card = collision.GetComponent<Card>();
+
+            if (card != null)
             {
-                if (!card.hasFlipped)
+                if (!card.cardRotation.hasFlipped)
                 {
                     cardsInPlayArea.Add(card);
-                    Debug.Log("Card is added to play area: " + card.card.cardData.card_Name);
 
-                    if (card.card.cardData.card_Ownership == CardOwnership.Player)
+                    if (card.cardData.card_Ownership == CardOwnership.Player)
                     {
                         playerCardsInPlay.Add(card);
+                    }
+                    else
+                    {
+                        enemyCardsInPlay.Add(card);
                     }
                 }
             }
@@ -95,26 +101,33 @@ public class PlayAreaManager : MonoBehaviour
             }
         }
     }
-
+    
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("PlayingCard"))
         {
-            CardMovementAttemp card = collision.GetComponent<CardMovementAttemp>();
+            Card card = collision.GetComponent<Card>();
 
-            if (card != null && !card.hasFlipped)
+            if (card != null && !card.cardRotation.hasFlipped)
             {
                 
-                if (playerCardsInPlay.Count > 1 && card.card.hasUsedPlayEnergy == true)
+                if (playerCardsInPlay.Count > 1 && card.hasUsedPlayEnergy == true)
                 {
                     turn.currentEnergy += 2;
-                    card.card.hasUsedPlayEnergy = false;
+                    card.hasUsedPlayEnergy = false;
 
-                    Debug.Log("Card is removed from play area: " + card.card.cardData.card_Name);
                 }
 
                 cardsInPlayArea.Remove(card);
-                playerCardsInPlay.Remove(card);
+
+                if (card.cardData.card_Ownership == CardOwnership.Player)
+                {
+                    playerCardsInPlay.Remove(card);
+                }
+                else
+                {
+                    enemyCardsInPlay.Remove(card);
+                }
 
             }
 
@@ -130,9 +143,9 @@ public class PlayAreaManager : MonoBehaviour
     {
         if(turn.isMyTurn && turn.currentEnergy >= 1)
         {
-            foreach (CardMovementAttemp card in cardsInPlayArea)
+            foreach (Card card in cardsInPlayArea)
             {
-                card.beginFlip();
+                card.cardRotation.beginFlip();
             }
             
             turn.currentEnergy -= 1;
@@ -140,7 +153,7 @@ public class PlayAreaManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("You don't have enough energy to flip");
+            return;
         }
     }
 
@@ -148,15 +161,14 @@ public class PlayAreaManager : MonoBehaviour
     {
         if (turn.isMyTurn && !hasPlayed)
         {
-            foreach (CardMovementAttemp card in cardsInPlayArea)
+            foreach (Card card in cardsInPlayArea)
             {
-                if (!card.hasFlipped)
+                if (!card.cardRotation.hasFlipped)
                 {
-                    card.beginFlip();
+                    card.cardRotation.beginFlip();
                 }
             }
             hasPlayed = true;
-            Debug.Log("Card(s) has been played");
         }
     }
 

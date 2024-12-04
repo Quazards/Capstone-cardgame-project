@@ -257,8 +257,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 231.7559, y: -0.9161}
-  m_SizeDelta: {x: 202.5945, y: 307.0209}
+  m_AnchoredPosition: {x: 294.7992, y: -96.45469}
+  m_SizeDelta: {x: 328.681, y: 498.0981}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4221782614957424475
 CanvasRenderer:
@@ -383,7 +383,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flipButton: {fileID: 0}
+  playButton: {fileID: 0}
   cardsInPlayArea: []
+  playerCardsInPlay: []
+  hasPlayed: 0
+  enemyHasEntered: 0
   playerCardHolder: {fileID: 5318760218783178017}
   enemyCardHolder: {fileID: 2118462514947769883}
 --- !u!210 &4624664066278589461

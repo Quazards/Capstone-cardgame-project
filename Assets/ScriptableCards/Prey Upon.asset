@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7113b6c0abbb02049aee93a8a47489cb, type: 3}
+  m_Name: Prey Upon
+  m_EditorClassIdentifier: 
+  <card_Name>k__BackingField: Prey Upon
+  <front_Number>k__BackingField: 1
+  <back_Number>k__BackingField: 2
+  <front_Image>k__BackingField: {fileID: 4417559226839808859, guid: bbc3a3e9929633146b704af7ca23f09c, type: 3}
+  <back_Image>k__BackingField: {fileID: 2136297236069658017, guid: 599effd5c935d9442806d2d3ff5fec99, type: 3}
+  <front_Type>k__BackingField: 0
+  <back_Type>k__BackingField: 0
+  <card_Ownership>k__BackingField: 0

@@ -15,9 +15,11 @@ MonoBehaviour:
   <card_Name>k__BackingField: Cruelty
   <front_Number>k__BackingField: 4
   <back_Number>k__BackingField: 3
-  <front_Image>k__BackingField: {fileID: -2561532944257487562, guid: af4445c1f70dc9c4f8c587b0662c5b43, type: 3}
-  <back_Image>k__BackingField: {fileID: 6394565795907760271, guid: f27f1dd793668d4499127b673e3e3d66, type: 3}
+  <front_Image>k__BackingField: {fileID: -478473386618417641, guid: 5682da3d573e0a849af8a42da0b4d7de, type: 3}
+  <back_Image>k__BackingField: {fileID: 7150369158763783311, guid: 22a41e9c138847e46ac94a9fff2128ce, type: 3}
   <front_Type>k__BackingField: 0
   <back_Type>k__BackingField: 1
   <card_Ownership>k__BackingField: 1
   <card_Rarity>k__BackingField: 0
+  card_Effect: []
+  <card_Description>k__BackingField: 

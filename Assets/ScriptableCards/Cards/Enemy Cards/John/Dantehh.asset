@@ -15,9 +15,11 @@ MonoBehaviour:
   <card_Name>k__BackingField: Dantehh
   <front_Number>k__BackingField: 8
   <back_Number>k__BackingField: 8
-  <front_Image>k__BackingField: {fileID: -4583400091800727721, guid: 0f9ee588ef7c34744b0b336fc5785ef3, type: 3}
-  <back_Image>k__BackingField: {fileID: -4583400091800727721, guid: 0f9ee588ef7c34744b0b336fc5785ef3, type: 3}
+  <front_Image>k__BackingField: {fileID: 8620706835602798527, guid: e2bf8a778177be14bb4ffaf09a8b39f6, type: 3}
+  <back_Image>k__BackingField: {fileID: 8620706835602798527, guid: e2bf8a778177be14bb4ffaf09a8b39f6, type: 3}
   <front_Type>k__BackingField: 0
   <back_Type>k__BackingField: 1
   <card_Ownership>k__BackingField: 1
   <card_Rarity>k__BackingField: 0
+  card_Effect: []
+  <card_Description>k__BackingField: 

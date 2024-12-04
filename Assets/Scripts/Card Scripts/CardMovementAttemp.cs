@@ -2,27 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using Unity.UI;
 using UnityEngine.UI;
 
 public class CardMovementAttemp : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    //private bool isDragging = false;
     [HideInInspector] public Transform newParent;
 
-    private bool proceedCaroutine;
-    private bool isOverPlayArea = false;
-    public bool hasFlipped = false;
-    public bool isPlayerCard = false;
+    [HideInInspector] public bool isOverPlayArea = false;
+    [HideInInspector] public bool isPlayerCard = false;
+    [HideInInspector] public bool isPointerOverCard = false;
 
     private Canvas cardCanvas;
     private RectTransform rectTransform;
     public Card card;
     private GameObject Hand;
     private CardUI cardUI;
-    private GameObject playArea;
-    private float random;
-    private bool isPointerOverCard = false;
+    private CardRotation cardRotation;
 
     public GameObject hoveredObject;
     public TurnSystem turnSystem;
@@ -40,118 +35,15 @@ public class CardMovementAttemp : MonoBehaviour, IPointerEnterHandler, IPointerE
         rectTransform = GetComponent<RectTransform>();
         card = GetComponent<Card>();
         cardUI = GetComponent<CardUI>();
+        cardRotation = GetComponent<CardRotation>();
         turnSystem = TurnSystem.Instance;
-
         Hand = GameObject.FindGameObjectWithTag("Hand");
-        playArea = GameObject.FindGameObjectWithTag("PlayArea");
-
-        proceedCaroutine = true;
-    }
-
-  
-
-    private void Update()
-    {
-        random = Random.Range(0f, 1f);
-
-        if (Input.GetMouseButtonDown(1) && isPointerOverCard && !isOverPlayArea)
-        {
-            if (proceedCaroutine)
-            {
-                StartCoroutine(CardRotation());
-            }
-        }
-
-       
-    }
-
-    private IEnumerator CardRotation()
-    {
-        proceedCaroutine = false;
-
-
-        if(card.cardPosition == CardPosition.Up)
-        {
-            for(float i = 0; i <= 180f; i += 10f)
-            {
-                transform.rotation = Quaternion.Euler(0f, i, 0f);
-                if(i == 90f)
-                {
-                    card.cardPosition = CardPosition.Down;
-
-                }
-                yield return new WaitForSeconds(0.01f);
-            }
-            cardUI.cardHandle.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            cardUI.backNumber.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        }
-
-        else if(card.cardPosition == CardPosition.Down)
-        {
-            for(float i = 180; i >= 0; i -= 10f)
-            {
-                transform.rotation = Quaternion.Euler(0f, i, 0f);
-                if(i == 90f)
-                {
-                    card.cardPosition = CardPosition.Up;
-                }
-                yield return new WaitForSeconds(0.01f);
-            }
-            cardUI.cardHandle.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            cardUI.frontNumber.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        }
-
-
-        proceedCaroutine = true;
-
 
     }
-
-    private IEnumerator Flip()
-    {
-        proceedCaroutine = false;
-
-
-        if (random < 0.5f)
-        {
-            for (float i = 0; i <= 180f; i += 10f)
-            {
-                transform.rotation = Quaternion.Euler(0f, i, 0f);
-                if (i == 90f)
-                {
-                    card.cardPosition = CardPosition.Down;
-
-                }
-                yield return new WaitForSeconds(0.01f);
-            }
-
-            cardUI.cardHandle.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            cardUI.backNumber.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        }
-
-        else
-        {
-            for (float i = 180; i >= 0; i -= 10f)
-            {
-                transform.rotation = Quaternion.Euler(0f, i, 0f);
-                if (i == 90f)
-                {
-                    card.cardPosition = CardPosition.Up;
-                }
-                yield return new WaitForSeconds(0.01f);
-            }
-            cardUI.cardHandle.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            cardUI.frontNumber.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        }
-
-
-        proceedCaroutine = true;
-    }
-
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (TurnSystem.Instance.isMyTurn && !hasFlipped && isPlayerCard)
+        if (TurnSystem.Instance.isMyTurn && !cardRotation.hasFlipped && isPlayerCard)
         {
             rectTransform.anchoredPosition += (eventData.delta / cardCanvas.scaleFactor);
             transform.SetParent(cardCanvas.transform, true);
@@ -203,19 +95,6 @@ public class CardMovementAttemp : MonoBehaviour, IPointerEnterHandler, IPointerE
     public void OnPointerExit(PointerEventData eventData)
     {
         isPointerOverCard = false;
-    }
-
-    public void beginFlip()
-    {
-        if (isOverPlayArea)
-        {
-
-            if (proceedCaroutine)
-            {
-                StartCoroutine(Flip());
-                hasFlipped = true;
-            }
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

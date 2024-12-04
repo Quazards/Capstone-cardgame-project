@@ -15,10 +15,8 @@ MonoBehaviour:
   <cardsInPile>k__BackingField:
   - {fileID: 11400000, guid: 1bde9c31c93fe8a49ac82e2b201978ac, type: 2}
   - {fileID: 11400000, guid: 1bde9c31c93fe8a49ac82e2b201978ac, type: 2}
+  - {fileID: 11400000, guid: 1bde9c31c93fe8a49ac82e2b201978ac, type: 2}
   - {fileID: 11400000, guid: c1196ca96461f35499ea369ece1d5132, type: 2}
   - {fileID: 11400000, guid: c1196ca96461f35499ea369ece1d5132, type: 2}
   - {fileID: 11400000, guid: c1196ca96461f35499ea369ece1d5132, type: 2}
   - {fileID: 11400000, guid: e9de6ee626a076542959624853a97fc2, type: 2}
-  - {fileID: 11400000, guid: 1bde9c31c93fe8a49ac82e2b201978ac, type: 2}
-  - {fileID: 11400000, guid: 018822b2eaff8ad468a2b9d4a499dc9f, type: 2}
-  - {fileID: 11400000, guid: aabee8b2c5fbb0e4cb32479de2047abf, type: 2}

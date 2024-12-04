@@ -12,13 +12,13 @@ public class CardUI : MonoBehaviour
     //[Header("Prefab elements")]
     public Image front_CardImage;
     public Image back_CardImage;
-    //[SerializeField] private Image cardBackground;
     public Image cardTypeBackground;
     public Image cardHandle;
 
     public TextMeshProUGUI cardName;
     public TextMeshProUGUI frontNumber;
     public TextMeshProUGUI backNumber;
+    public TextMeshProUGUI cardDescription;
 
     [SerializeField] private Sprite commonAttackBackground;
     [SerializeField] private Sprite uncommonAttackBackground;
@@ -57,8 +57,13 @@ public class CardUI : MonoBehaviour
     private void SetCardText()
     {
         cardName.text = card.cardData.card_Name;
-        frontNumber.text = card.cardData.front_Number.ToString();
-        backNumber.text = card.cardData.back_Number.ToString();
+        frontNumber.text = card.tempFrontNumber.ToString();
+        backNumber.text = card.tempBackNumber.ToString();
+         
+        if (card.cardData.card_Description == null)
+            return;
+
+        cardDescription.text = card.cardData.card_Description;
     }
 
     private void SetCardImage()
@@ -132,19 +137,22 @@ public class CardUI : MonoBehaviour
     {
         if (cardData == null)
         {
-            Debug.LogError("cardData is null");
             return;
         }
 
-        Debug.Log($"Setting card data for: {cardData.card_Name}");
-
         // Set the card text and images
+        cardTypeBackground.sprite = GetRarityBackground(cardData.card_Rarity, isFrontAttack(cardData));
+
         cardName.text = cardData.card_Name;
         frontNumber.text = cardData.front_Number.ToString();
         backNumber.text = cardData.back_Number.ToString();
         front_CardImage.sprite = cardData.front_Image;
         back_CardImage.sprite = cardData.back_Image;
 
-        cardTypeBackground.sprite = GetRarityBackground(cardData.card_Rarity, isFrontAttack(cardData));
+        if (cardData.card_Description == null)
+            return;
+
+        cardDescription.text = cardData.card_Description;
+
     }
 }
