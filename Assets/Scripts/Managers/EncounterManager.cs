@@ -65,7 +65,7 @@ public class EncounterManager : MonoBehaviour, IDataPersistence
         TurnSystem.Instance.SwitchPhase(CombatPhase.CombatStart);
         isFirstEncounter = false;
 
-        Debug.Log($"Encounter count: {encounterCount}");
+        Debug.Log($"Encounter count: {DataPersistenceManager.instance.gameData.encounterCount}");
 
         if (encounterCount >= 5)
         {

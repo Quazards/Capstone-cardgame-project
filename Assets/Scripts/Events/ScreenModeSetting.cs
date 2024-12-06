@@ -9,7 +9,11 @@ public class ScreenModeSetting : MonoBehaviour
 
     void Start()
     {
-        resolutions = FindObjectOfType<Resolutions>();
+        resolutions = Object.FindFirstObjectByType<Resolutions>();
+
+        if (resolutions == null)
+            return;
+
         int val = PlayerPrefs.GetInt("ScreenMode", 0);
         ScreenModeDropDown.value = val;
 
@@ -21,17 +25,18 @@ public class ScreenModeSetting : MonoBehaviour
     {
         PlayerPrefs.SetInt("ScreenMode", index);
 
-        if (index == 0)
+
+        if (index == 0 && resolutions != null)
         {
             Screen.SetResolution(resolutions.CurrentResolution.width, resolutions.CurrentResolution.height, true);
             Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
         }
-        else if (index == 1)
+        else if (index == 1 && resolutions != null)
         {
             Screen.SetResolution(resolutions.CurrentResolution.width, resolutions.CurrentResolution.height, true);
             Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         }
-        else if (index == 2)
+        else if (index == 2 && resolutions != null)
         {
             Screen.SetResolution(resolutions.CurrentResolution.width, resolutions.CurrentResolution.height, false);
             Screen.fullScreenMode = FullScreenMode.Windowed;

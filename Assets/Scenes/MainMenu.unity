@@ -818,7 +818,7 @@ AudioSource:
   m_GameObject: {fileID: 152468805}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8975735609141260563, guid: 2cc25a521ad3972439106f96067484b2, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -4635,13 +4635,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 152468807}
   SFXSource: {fileID: 1262630603}
-  sound1: {fileID: 0}
-  sound2: {fileID: 0}
-  sound3: {fileID: 0}
-  sound4: {fileID: 0}
-  sound5: {fileID: 0}
-  sound6: {fileID: 0}
-  sound7: {fileID: 0}
+  menuMusic: {fileID: 8300000, guid: 2d723fafd5eaf744c928ae4be0ecaa72, type: 3}
+  battleMusic1: {fileID: 8300000, guid: a06871c280df0fc4ea5d8c394cce2298, type: 3}
+  battleMusic2: {fileID: 8300000, guid: ba70b1ec3e6de384190f13b5dc25be72, type: 3}
+  cardDrawSound: {fileID: 8300000, guid: 5afb1841f947d7a42be5254eb220aa1f, type: 3}
+  cardFlipSound: {fileID: 8300000, guid: f225c9773c1fb7c46ac8bb7be28ae4ac, type: 3}
+  cardPutSound: {fileID: 8300000, guid: a619ea5888bb8864485d0297a4408805, type: 3}
 --- !u!114 &1251296778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4699,7 +4698,7 @@ AudioSource:
   m_GameObject: {fileID: 1262630601}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -1477438799611546554, guid: 2cc25a521ad3972439106f96067484b2, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -6582,6 +6581,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fileName: data.json
+  gameData:
+    playerCurrentHealth: 50
+    globalDeck: []
+    isStarterDeckInitialized: 0
+    encounterCount: 0
+    isFirstEncounter: 1
+    resolutionWidth: 1920
+    resolutionHeight: 1080
 --- !u!114 &1864868303
 MonoBehaviour:
   m_ObjectHideFlags: 0

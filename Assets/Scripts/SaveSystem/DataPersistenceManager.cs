@@ -7,18 +7,21 @@ public class DataPersistenceManager : MonoBehaviour
 {
     [Header("File Storage Config")]
     [SerializeField] private string fileName;
-    private GameData gameData;
+    [HideInInspector] public GameData gameData;
     public static DataPersistenceManager instance { get; private set; }
 
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler;
     private void Awake()
     {
-        if (instance != null)
+        if (instance != null && instance != this)
         {
-            Debug.LogError("There is more than one Data Persistence Manager in the scene.");
+            Destroy(gameObject);
         }
-        instance = this;
+        else
+        {
+            instance = this;
+        }
     }
         private void Start()
         {
@@ -68,7 +71,9 @@ public class DataPersistenceManager : MonoBehaviour
         {
             SaveGame();
         }
-        private List<IDataPersistence> FindAllDataPersistenceObjects()
+
+    [System.Obsolete]
+    private List<IDataPersistence> FindAllDataPersistenceObjects()
         {
             IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
 

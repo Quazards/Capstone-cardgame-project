@@ -21,5 +21,11 @@ MonoBehaviour:
   <back_Type>k__BackingField: 0
   <card_Ownership>k__BackingField: 1
   <card_Rarity>k__BackingField: 2
-  card_Effect: []
-  <card_Description>k__BackingField: 
+  card_Effect:
+  - effectType: 4
+    value: 0
+    target: 2
+    triggerTime: 1
+    triggerCondition: 0
+    duration: 0
+  <card_Description>k__BackingField: Heal 5 to self

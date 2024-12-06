@@ -13,13 +13,19 @@ MonoBehaviour:
   m_Name: Standoff
   m_EditorClassIdentifier: 
   <card_Name>k__BackingField: Standoff
-  <front_Number>k__BackingField: 9
-  <back_Number>k__BackingField: 9
+  <front_Number>k__BackingField: 11
+  <back_Number>k__BackingField: 11
   <front_Image>k__BackingField: {fileID: 8620706835602798527, guid: e2bf8a778177be14bb4ffaf09a8b39f6, type: 3}
   <back_Image>k__BackingField: {fileID: 8620706835602798527, guid: e2bf8a778177be14bb4ffaf09a8b39f6, type: 3}
   <front_Type>k__BackingField: 0
   <back_Type>k__BackingField: 0
   <card_Ownership>k__BackingField: 0
   <card_Rarity>k__BackingField: 2
-  card_Effect: []
-  <card_Description>k__BackingField: 
+  card_Effect:
+  - effectType: 3
+    value: 5
+    target: 2
+    triggerTime: 1
+    triggerCondition: 0
+    duration: 0
+  <card_Description>k__BackingField: 'Deal 5 Damage '

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Index
   m_EditorClassIdentifier: 
   <enemyName>k__BackingField: Index
-  <maxHealth>k__BackingField: 99
+  <maxHealth>k__BackingField: 77
   <deckList>k__BackingField: {fileID: 11400000, guid: 8dd1df1836aa8944e8651f5decc9c2f9, type: 2}
   <enemyType>k__BackingField: 2
   <enemyDrawAmount>k__BackingField: 3

@@ -13,13 +13,19 @@ MonoBehaviour:
   m_Name: Yield
   m_EditorClassIdentifier: 
   <card_Name>k__BackingField: Yield
-  <front_Number>k__BackingField: 10
-  <back_Number>k__BackingField: 9
+  <front_Number>k__BackingField: 4
+  <back_Number>k__BackingField: 4
   <front_Image>k__BackingField: {fileID: 7150369158763783311, guid: 22a41e9c138847e46ac94a9fff2128ce, type: 3}
   <back_Image>k__BackingField: {fileID: 7150369158763783311, guid: 22a41e9c138847e46ac94a9fff2128ce, type: 3}
   <front_Type>k__BackingField: 1
   <back_Type>k__BackingField: 1
   <card_Ownership>k__BackingField: 1
   <card_Rarity>k__BackingField: 1
-  card_Effect: []
-  <card_Description>k__BackingField: 
+  card_Effect:
+  - effectType: 4
+    value: 5
+    target: 2
+    triggerTime: 1
+    triggerCondition: 0
+    duration: 0
+  <card_Description>k__BackingField: Heal 5 to self

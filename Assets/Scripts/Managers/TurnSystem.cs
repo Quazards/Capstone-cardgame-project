@@ -88,7 +88,6 @@ public class TurnSystem : MonoBehaviour
 
     public void TurnEndPhase()
     {
-        Debug.Log($"Phase switched to {currentPhase}");
 
         if(!playArea.enemyHasEntered)
         {
@@ -101,13 +100,11 @@ public class TurnSystem : MonoBehaviour
         }
 
         isMyTurn = false;
-        StartCoroutine(SimulateEndTurn(0.5f));
+        StartCoroutine(SimulateEndTurn(1f));
     }
 
     public void TurnStartPhase()
     {
-        Debug.Log($"Phase switched to {currentPhase}");
-
         isMyTurn = true;
         turnStart = true;
 
@@ -142,7 +139,7 @@ public class TurnSystem : MonoBehaviour
     }
 
     
-    private void EndTurnDiscard()
+    private IEnumerator EndTurnDiscard()
     {
         List<Card> cardsToDiscard = new List<Card>();
 
@@ -155,11 +152,11 @@ public class TurnSystem : MonoBehaviour
         {
             if(card.cardData.card_Ownership != CardOwnership.Enemy)
             {
-                playerDeck.Discard(card);
+                yield return StartCoroutine(playerDeck.Discard(card));
             }
             else
             {
-                enemyDeck.Discard(card);
+                yield return StartCoroutine(enemyDeck.Discard(card));
             }
         }
         playArea.cardsInPlayArea.Clear();
@@ -203,10 +200,10 @@ public class TurnSystem : MonoBehaviour
     private IEnumerator SimulateEndTurn(float time)
     {
         ActivateAllCards();
-        yield return new WaitForSeconds(time * 2);
+        yield return new WaitForSeconds(time);
         combatManager.CalculateDamage();
-
-        EndTurnDiscard();
+        StartCoroutine(EndTurnDiscard());
+        yield return new WaitForSeconds(time);
         SwitchPhase(CombatPhase.TurnStart);
     }
 }

@@ -4,23 +4,23 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CardMovementAttemp : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class CardMovementAttemp : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     [HideInInspector] public Transform newParent;
-
-    [HideInInspector] public bool isOverPlayArea = false;
     [HideInInspector] public bool isPlayerCard = false;
-    [HideInInspector] public bool isPointerOverCard = false;
 
     private Canvas cardCanvas;
     private RectTransform rectTransform;
     public Card card;
     private GameObject Hand;
     private CardUI cardUI;
-    private CardRotation cardRotation;
+    private CardHover cardHover;
+    public CardRotation cardRotation;
 
     public GameObject hoveredObject;
     public TurnSystem turnSystem;
+    private AudioManager audioManager;
+
 
     public Image cardImageComponent;
     public Image cardBackgroundComponent;
@@ -36,7 +36,10 @@ public class CardMovementAttemp : MonoBehaviour, IPointerEnterHandler, IPointerE
         card = GetComponent<Card>();
         cardUI = GetComponent<CardUI>();
         cardRotation = GetComponent<CardRotation>();
+        cardHover = GetComponent<CardHover>();
         turnSystem = TurnSystem.Instance;
+        audioManager = AudioManager.Instance;
+
         Hand = GameObject.FindGameObjectWithTag("Hand");
 
     }
@@ -58,6 +61,7 @@ public class CardMovementAttemp : MonoBehaviour, IPointerEnterHandler, IPointerE
         cardBackgroundComponent.raycastTarget = false;
         cardBorderComponent.raycastTarget = false;
         cardHandleComponent.raycastTarget = false;
+        cardRotation.isDragging = true;
 
 
         if (card.cardData.card_Ownership == CardOwnership.Player)
@@ -73,10 +77,17 @@ public class CardMovementAttemp : MonoBehaviour, IPointerEnterHandler, IPointerE
         cardBackgroundComponent.raycastTarget = true;
         cardBorderComponent.raycastTarget = true;
         cardHandleComponent.raycastTarget = true;
+        cardRotation.isDragging = false;
 
-        if (hoveredObject.CompareTag("PlayerCardHolder") && hoveredObject != null && card.cardData.card_Ownership == CardOwnership.Player)
+        if (hoveredObject.CompareTag("PlayerCardHolder") && hoveredObject != null 
+            && card.cardData.card_Ownership == CardOwnership.Player && !cardHover.isHovering)
         {
             transform.SetParent(newParent, false);
+
+            if (audioManager != null)
+            {
+                audioManager.PlaySFX(audioManager.cardPutSound);
+            }
             
         }
         else if (isPlayerCard && hoveredObject != null)
@@ -87,21 +98,11 @@ public class CardMovementAttemp : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        isPointerOverCard = true;
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        isPointerOverCard = false;
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("PlayArea"))
         {
-            isOverPlayArea = true;
+            cardRotation.isOverPlayArea = true;
         }
     }
 
@@ -109,7 +110,7 @@ public class CardMovementAttemp : MonoBehaviour, IPointerEnterHandler, IPointerE
     {
         if (collision.CompareTag("PlayArea"))
         {
-            isOverPlayArea = false;
+            cardRotation.isOverPlayArea = false;
         }
     }
 

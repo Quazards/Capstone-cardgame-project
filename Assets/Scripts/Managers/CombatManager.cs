@@ -9,6 +9,7 @@ public class CombatManager : MonoBehaviour
     [HideInInspector] public PlayAreaManager playArea;
     [HideInInspector] public PlayerHealth playerHealth;
     [HideInInspector] public EnemyHealth enemyHealth;
+    [HideInInspector] public CameraManager cameraManager;
     [SerializeField] private HealthBarUI playerHealthBar;
     [SerializeField] private HealthBarUI enemyHealthBar;
 
@@ -32,12 +33,10 @@ public class CombatManager : MonoBehaviour
         playArea = PlayAreaManager.Instance;
         playerHealth = PlayerHealth.Instance;
         enemyHealth = EnemyHealth.Instance;
+        cameraManager = CameraManager.Instance;
 
-        if (TurnSystem.Instance.currentPhase == CombatPhase.CombatStart)
-        {
-            enemyHealthBar.SetMaxHealthBar(enemyHealth.enemyCurrentHealth, enemyHealth.enemyMaxHealth);
-        }
         playerHealthBar.SetMaxHealthBar(playerHealth.playerCurrentHealth, playerHealth.playerMaxHealth);
+        StartCoroutine(InitializeEnemyHealth());
     }
 
     public void CalculateDamage()
@@ -94,17 +93,15 @@ public class CombatManager : MonoBehaviour
         if (playerTotalAttack > enemyTotalAttack)
         {
             DealDamageToEnemy(playerTotalAttack);
-            enemyHealthBar.SetHealthBar(enemyHealth.enemyCurrentHealth);
         }
         else if (playerTotalAttack < enemyTotalAttack)
         {
             DealDamageToPlayer(enemyTotalAttack);
-            playerHealthBar.SetHealthBar(playerHealth.playerCurrentHealth);
 
         }
     }
 
-    private void DealDamageToPlayer(int damage)
+    public void DealDamageToPlayer(int damage)
     {
         if(playerShield > 0)
         {
@@ -120,6 +117,8 @@ public class CombatManager : MonoBehaviour
             }
         }
         playerHealth.PlayerTakeDamage(damage);
+        playerHealthBar.SetHealthBar(playerHealth.playerCurrentHealth);
+        cameraManager.ShakeCamera(10f, 1f);
 
         foreach (var card in playArea.cardsInPlayArea)
         {
@@ -135,7 +134,7 @@ public class CombatManager : MonoBehaviour
         }
     }
 
-    private void DealDamageToEnemy(int damage)
+    public void DealDamageToEnemy(int damage)
     {
         if(enemyShield > 0)
         {
@@ -151,6 +150,9 @@ public class CombatManager : MonoBehaviour
             }
         }
         enemyHealth.EnemyTakeDamage(damage);
+        enemyHealthBar.SetHealthBar(enemyHealth.enemyCurrentHealth);
+        cameraManager.ShakeCamera(10f, 1f);
+
 
         foreach (var card in playArea.cardsInPlayArea)
         {
@@ -166,6 +168,24 @@ public class CombatManager : MonoBehaviour
         }
     }
 
+    public void HealPlayer(int amount)
+    {
+        playerHealth.PlayerRegenHealth(amount);
+        playerHealthBar.SetHealthBar(playerHealth.playerCurrentHealth);
+    }
+
+    public void HealEnemy(int amount)
+    {
+        enemyHealth.EnemyRegenHealth(amount);
+        enemyHealthBar.SetHealthBar(enemyHealth.enemyCurrentHealth);
+
+    }
+    private IEnumerator InitializeEnemyHealth()
+    {
+        yield return new WaitForSeconds(0.01f);
+        enemyHealthBar.SetMaxHealthBar(enemyHealth.enemyCurrentHealth, enemyHealth.enemyMaxHealth);
+
+    }
 
     //for testing
     public void Kill()

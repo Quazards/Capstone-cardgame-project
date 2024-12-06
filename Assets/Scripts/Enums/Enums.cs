@@ -28,7 +28,9 @@ public enum CardEffectType
 {
     Energy,
     Draw,
-    Buff
+    Buff,
+    Damage,
+    Heal
 }
 
 public enum CardTarget
@@ -47,7 +49,8 @@ public enum CardTriggerTime
 public enum CardTriggerCondition
 {
     None,
-    AlliedAttackCard
+    AlliedAttackCard,
+    AlliedDefendCard
 }
 
 #endregion

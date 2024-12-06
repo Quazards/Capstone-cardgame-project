@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Pierre
   m_EditorClassIdentifier: 
   <enemyName>k__BackingField: Pierre
-  <maxHealth>k__BackingField: 60
+  <maxHealth>k__BackingField: 40
   <deckList>k__BackingField: {fileID: 11400000, guid: 7613db69fa8b147419594ef5049e351a, type: 2}
   <enemyType>k__BackingField: 1
   <enemyDrawAmount>k__BackingField: 2

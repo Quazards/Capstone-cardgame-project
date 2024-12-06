@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class CardEffect
 {
+
     public CardEffectType effectType;
     public int value;
     public CardTarget target;
@@ -37,6 +38,12 @@ public class CardEffect
                 break;
             case CardEffectType.Draw:
                 ApplyDraw(cardList, currentCard);
+                break;
+            case CardEffectType.Damage:
+                ApplyDamage(value);
+                break;
+            case CardEffectType.Heal:
+                ApplyHeal(value);
                 break;
         }
     }
@@ -98,6 +105,36 @@ public class CardEffect
         }
     }
 
+    private void ApplyDamage(int  damage)
+    {
+        switch(target)
+        {
+            case CardTarget.Player:
+                CombatManager.Instance.DealDamageToPlayer(damage);
+                break;
+            case CardTarget.Enemy:
+                CombatManager.Instance.DealDamageToEnemy(damage);
+                break;
+            default :
+                return;
+        }
+    }
+
+    private void ApplyHeal(int amount)
+    {
+        switch(target)
+        {
+            case CardTarget.Player:
+                CombatManager.Instance.HealPlayer(amount);
+                break;
+            case CardTarget.Enemy:
+                CombatManager.Instance.HealEnemy(amount);
+                break;
+            default :
+                return;
+        }
+    }
+
     private bool CheckTriggerCondition(List<Card> cardlist, Card currentCard)
     {
         if(triggerCondition == CardTriggerCondition.None)
@@ -121,12 +158,28 @@ public class CardEffect
                 }
             }
 
-            Debug.Log($"Other attack cards: {otherAttackCards} ");
-
-            if (otherAttackCards > 0)
-            {
+            if (otherAttackCards != 0)
                 return true;
+        }
+        else if (triggerCondition == CardTriggerCondition.AlliedDefendCard)
+        {
+            int otherDefendCards = 0;
+
+            foreach (Card card in cardlist)
+            {
+                CardType currentType = card.CurrentCardType();
+
+                if (card != currentCard && card.cardData.card_Ownership == CardOwnership.Player)
+                {
+                    if (currentType == CardType.Defend)
+                    {
+                        otherDefendCards++;
+                    }
+                }
             }
+
+            if(otherDefendCards != 0)
+                return true;
         }
 
         return false;

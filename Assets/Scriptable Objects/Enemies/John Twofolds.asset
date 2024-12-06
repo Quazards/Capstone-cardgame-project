@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: John Twofolds
   m_EditorClassIdentifier: 
   <enemyName>k__BackingField: John Twofolds
-  <maxHealth>k__BackingField: 30
+  <maxHealth>k__BackingField: 15
   <deckList>k__BackingField: {fileID: 11400000, guid: f3c145c98541efb4a956083dfd8a3b8d, type: 2}
   <enemyType>k__BackingField: 0
   <enemyDrawAmount>k__BackingField: 1

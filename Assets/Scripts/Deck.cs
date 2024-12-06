@@ -9,6 +9,8 @@ public class Deck : MonoBehaviour
     [SerializeField] private Card cardPrefab;
     [SerializeField] private Canvas cardCanvas;
     private TurnSystem turnSystem;
+    private AudioManager audioManager;
+
 
     public int drawAmount = 1;
 
@@ -19,6 +21,7 @@ public class Deck : MonoBehaviour
     private void Start()
     {
         turnSystem = TurnSystem.Instance;
+        audioManager = AudioManager.Instance;
     }
 
     public void ClearAll()
@@ -68,48 +71,162 @@ public class Deck : MonoBehaviour
 
     public void TurnStartDraw()
     {
-            for (int i = 0; i < drawAmount; i++)
-            {
-                if (deckPile.Count == 0 && discardPile.Count != 0)
-                {
-                    deckPile.AddRange(discardPile);
-                    discardPile.Clear();
-                    Shuffle();
-                }
-
-                if (deckPile.Count > 0)
-                {
-                    Card drawnCard = deckPile[0];
-                    handPile.Add(drawnCard);
-                    deckPile[0].gameObject.SetActive(true);
-                    deckPile.RemoveAt(0);
-                    
-                    var cardRotation = drawnCard.GetComponent<CardRotation>();
-                    if (cardRotation != null)
-                    {
-                        cardRotation.hasFlipped = false;
-                    }
-                    
-                    if(drawnCard.cardData.card_Ownership == CardOwnership.Player)
-                    {
-                        drawnCard.transform.SetParent(GameObject.FindGameObjectWithTag("Hand").transform);
-                    }
-                    else if(drawnCard.cardData.card_Ownership == CardOwnership.Enemy)
-                    {
-                        drawnCard.transform.SetParent(GameObject.FindGameObjectWithTag("EnemyArea").transform);
-                    }
-                }
-            }
+        StartCoroutine(DrawCardsWithAnimation(drawAmount));
     }
 
-    public void Discard(Card card)
+    public IEnumerator Discard(Card card)
     {
-        if(handPile.Contains(card))
+        if (handPile.Contains(card))
         {
             handPile.Remove(card);
             discardPile.Add(card);
+
+            Vector3 startPosition = card.transform.position;
+            Vector3 endPosition = card.transform.position;
+
+            if (card.cardData.card_Ownership == CardOwnership.Player)
+            {
+                endPosition = GameObject.FindGameObjectWithTag("PlayerDiscardPile").transform.position;
+            }
+            else if (card.cardData.card_Ownership == CardOwnership.Enemy)
+            {
+                endPosition = GameObject.FindGameObjectWithTag("EnemyDiscardPile").transform.position;
+            }
+
+            yield return StartCoroutine(CardDiscardAnimation(card, startPosition, endPosition));
+
             card.gameObject.SetActive(false);
         }
+    }
+
+    private IEnumerator DrawCardsWithAnimation(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            if (deckPile.Count == 0 && discardPile.Count != 0)
+            {
+                deckPile.AddRange(discardPile);
+                discardPile.Clear();
+                Shuffle();
+            }
+
+            if (deckPile.Count > 0)
+            {
+                Card drawnCard = deckPile[0];
+                handPile.Add(drawnCard);
+                deckPile.RemoveAt(0);
+
+                drawnCard.gameObject.SetActive(true);
+
+                var cardRotation = drawnCard.GetComponent<CardRotation>();
+                if (cardRotation != null)
+                {
+                    cardRotation.hasFlipped = false;
+                }
+
+                Vector3 startPosition = drawnCard.transform.position;
+                Vector3 endPosition = drawnCard.transform.position;
+                if (drawnCard.cardData.card_Ownership == CardOwnership.Player)
+                {
+                    startPosition = GameObject.FindGameObjectWithTag("PlayerDeckPile").transform.position;
+                    endPosition = GameObject.FindGameObjectWithTag("Hand").transform.position;
+                }
+                else if (drawnCard.cardData.card_Ownership == CardOwnership.Enemy)
+                {
+                    startPosition = GameObject.FindGameObjectWithTag("EnemyDeckPile").transform.position;
+                    endPosition = GameObject.FindGameObjectWithTag("EnemyArea").transform.position;
+                }
+
+                yield return StartCoroutine(CardDrawAnimation(drawnCard, startPosition, endPosition));
+
+
+                if (drawnCard.cardData.card_Ownership == CardOwnership.Player)
+                {
+                    drawnCard.transform.SetParent(GameObject.FindGameObjectWithTag("Hand").transform);
+                }
+                else if (drawnCard.cardData.card_Ownership == CardOwnership.Enemy)
+                {
+                    drawnCard.transform.SetParent(GameObject.FindGameObjectWithTag("EnemyArea").transform);
+                }
+
+                if (audioManager != null)
+                {
+                    audioManager.PlaySFX(audioManager.cardDrawSound);
+                }
+            }
+        }
+    }
+
+    private IEnumerator DiscardCardsWithAnimation(Card card)
+    {
+        if (handPile.Contains(card))
+        {
+            handPile.Remove(card);
+            discardPile.Add(card);
+
+            Vector3 startPosition = card.transform.position;
+            Vector3 endPosition = card.transform.position;
+
+            if (card.cardData.card_Ownership == CardOwnership.Player)
+            {
+                endPosition = GameObject.FindGameObjectWithTag("PlayerDiscardPile").transform.position;
+            }
+            else if (card.cardData.card_Ownership == CardOwnership.Enemy)
+            {
+                endPosition = GameObject.FindGameObjectWithTag("EnemyDiscardPile").transform.position;
+            }
+
+            yield return StartCoroutine(CardDiscardAnimation(card, startPosition, endPosition));
+
+            card.gameObject.SetActive(false);
+        }
+    }
+
+    private IEnumerator CardDrawAnimation(Card card, Vector3 startPosition, Vector3 endPosition)
+    {
+        card.transform.position = startPosition;
+        card.transform.localScale = Vector3.zero;
+
+        float animationTime = 0.2f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < animationTime)
+        {
+            float time = elapsedTime / animationTime;
+
+            card.transform.position = Vector3.Lerp(startPosition, endPosition, time);
+            card.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, time);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        card.transform.position = endPosition;
+        card.transform.localScale = Vector3.one;
+    }
+
+    private IEnumerator CardDiscardAnimation(Card card, Vector3 startPosition, Vector3 endPosition)
+    {
+        card.transform.position = startPosition;
+        card.transform.localScale = Vector3.zero;
+
+        float animationTime = 0.2f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < animationTime)
+        {
+            float time = elapsedTime / animationTime;
+
+            card.transform.position = Vector3.Lerp(startPosition, endPosition, time);
+            card.transform.localScale = Vector3.Lerp(Vector3.one, Vector3.zero, time);
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        card.transform.position = endPosition;
+        card.transform.localScale = Vector3.zero;
+        //card.gameObject.SetActive(false);
     }
 
     public void AdditionalDraw()
@@ -121,7 +238,6 @@ public class Deck : MonoBehaviour
         }
         else
         {
-            Debug.Log("You dont have enough energy to draw");
             return;
         }
     }

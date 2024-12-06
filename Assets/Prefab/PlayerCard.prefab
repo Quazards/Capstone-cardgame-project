@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: -1732862406622575166}
   - component: {fileID: 6208081624691522924}
   - component: {fileID: -7594086362693014844}
+  - component: {fileID: 394995321813535347}
   m_Layer: 6
   m_Name: PlayerCard
   m_TagString: PlayingCard
@@ -159,7 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a1ff02fab562db4093a8493a59e3ebe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <cardData>k__BackingField: {fileID: 11400000, guid: 1bde9c31c93fe8a49ac82e2b201978ac, type: 2}
+  <cardData>k__BackingField: {fileID: 11400000, guid: cc207f8e56083e440ba3a80057e71d50, type: 2}
   cardPosition: 0
   hasUsedPlayEnergy: 0
   cardRotation: {fileID: 0}
@@ -284,6 +285,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentCard: {fileID: 0}
   hasFlipped: 0
+--- !u!114 &394995321813535347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959388628649775361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eee028b7262b5b45a842ece22269d87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3464788481304663975
 GameObject:
   m_ObjectHideFlags: 0
@@ -529,8 +542,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.2, y: -11}
-  m_SizeDelta: {x: 90, y: 17}
+  m_AnchoredPosition: {x: 2.1805, y: -11}
+  m_SizeDelta: {x: 150, y: 17}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6114982413602538612
 CanvasRenderer:
@@ -560,7 +573,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Slash
+  m_text: Overthrow
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 49612bbe0ab6f1242b5f800e26662ef9, type: 2}
   m_sharedMaterial: {fileID: 8414890679334364383, guid: 49612bbe0ab6f1242b5f800e26662ef9, type: 2}

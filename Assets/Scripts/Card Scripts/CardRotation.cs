@@ -6,21 +6,25 @@ public class CardRotation : MonoBehaviour
 {
     [HideInInspector] public Card currentCard;
     private CardUI currentCardUI;
-    private CardMovementAttemp cardMovement;
+    private CardHover cardHover;
+    private AudioManager audioManager;
 
     private bool proceedCaroutine = true;
     [HideInInspector] public bool hasFlipped = false;
+    [HideInInspector] public bool isOverPlayArea = false;
+    [HideInInspector] public bool isDragging = false;
 
     private void Start()
     {
         currentCard = GetComponent<Card>();
         currentCardUI = GetComponent<CardUI>();
-        cardMovement = GetComponent<CardMovementAttemp>();
+        cardHover = GetComponent<CardHover>();
+        audioManager = AudioManager.Instance;
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(1) && cardMovement.isPointerOverCard && !cardMovement.isOverPlayArea)
+        if (Input.GetMouseButtonDown(1) && cardHover.isPointerOverCard && isOverPlayArea)
         {
             if (proceedCaroutine)
             {
@@ -79,10 +83,17 @@ public class CardRotation : MonoBehaviour
             for (float i = 0; i <= 180f; i += 10f)
             {
                 transform.rotation = Quaternion.Euler(0f, i, 0f);
+                if(i == 30f)
+                {
+                    if (audioManager != null)
+                    {
+                        audioManager.PlaySFX(audioManager.cardFlipSound);
+                    }
+                }
+
                 if (i == 90f)
                 {
                     currentCard.cardPosition = CardPosition.Down;
-
                 }
                 yield return new WaitForSeconds(0.01f);
             }
@@ -96,6 +107,14 @@ public class CardRotation : MonoBehaviour
             for (float i = 180; i >= 0; i -= 10f)
             {
                 transform.rotation = Quaternion.Euler(0f, i, 0f);
+                if(i == 150f)
+                {
+                    if (audioManager != null)
+                    {
+                        audioManager.PlaySFX(audioManager.cardFlipSound);
+                    }
+                }
+
                 if (i == 90f)
                 {
                     currentCard.cardPosition = CardPosition.Up;
@@ -104,15 +123,19 @@ public class CardRotation : MonoBehaviour
             }
             currentCardUI.cardHandle.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
             currentCardUI.frontNumber.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-        }
 
+            if (audioManager != null)
+            {
+                audioManager.PlaySFX(audioManager.cardFlipSound);
+            }
+        }
 
         proceedCaroutine = true;
     }
 
     public void beginFlip()
     {
-        if (cardMovement.isOverPlayArea)
+        if (isOverPlayArea)
         {
 
             if (proceedCaroutine)

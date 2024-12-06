@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Rat
   m_EditorClassIdentifier: 
   <enemyName>k__BackingField: Rat
-  <maxHealth>k__BackingField: 20
+  <maxHealth>k__BackingField: 10
   <deckList>k__BackingField: {fileID: 11400000, guid: 0542da8c766f89c479f8faa7540767ff, type: 2}
   <enemyType>k__BackingField: 0
   <enemyDrawAmount>k__BackingField: 2

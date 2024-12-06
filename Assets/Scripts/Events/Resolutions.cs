@@ -19,10 +19,13 @@ public class Resolutions : MonoBehaviour, IDataPersistence
     
     public Resolution CurrentResolution => filteredResolutions[currentResolutionIndex];
 
-    private void Start()
+    private void Awake()
     {
         filteredResolutions = new List<Resolution>(resolutions);
+    }
 
+    private void Start()
+    {
         resolutionDropDown.ClearOptions();
 
         List<string> options = new List<string>();

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Salvador
   m_EditorClassIdentifier: 
   <enemyName>k__BackingField: Salvador
-  <maxHealth>k__BackingField: 80
+  <maxHealth>k__BackingField: 60
   <deckList>k__BackingField: {fileID: 11400000, guid: f900318ea0cb53f4e8dc81c33b24b6e9, type: 2}
   <enemyType>k__BackingField: 1
   <enemyDrawAmount>k__BackingField: 1
