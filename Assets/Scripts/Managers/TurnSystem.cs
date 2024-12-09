@@ -11,6 +11,7 @@ public class TurnSystem : MonoBehaviour
 
     public bool isMyTurn;
     public bool turnStart = false;
+    public bool isTurnEndButtonPressed = false;
 
     public int maxEnergy = 3;
     public int currentEnergy;
@@ -88,16 +89,24 @@ public class TurnSystem : MonoBehaviour
 
     public void TurnEndPhase()
     {
-
-        if(!playArea.enemyHasEntered)
+        if (!playArea.enemyHasEntered)
         {
             playArea.PlayEnemyCards();
         }
 
-        if (!playArea.hasPlayed && playArea.cardsInPlayArea.Count > 0)
+        if (playArea.hasPlayed)
         {
-            playArea.PlayAllCards();
+            Debug.Log("Play cards routine has activated before playing all cards");
         }
+
+        playArea.PlayAllCards();
+
+        if (playArea.hasPlayed)
+        {
+            Debug.Log("Play cards routine has activated after playing all cards");
+        }
+
+        Debug.Log($"Play cards routine has activated, with {playArea.hasPlayed} and {playArea.cardsInPlayArea.Count}");
 
         isMyTurn = false;
         StartCoroutine(SimulateEndTurn(1f));
@@ -107,6 +116,7 @@ public class TurnSystem : MonoBehaviour
     {
         isMyTurn = true;
         turnStart = true;
+        isTurnEndButtonPressed = false;
 
         currentEnergy = startEnergy;
         turnCount += 1;
@@ -121,8 +131,6 @@ public class TurnSystem : MonoBehaviour
 
     public void PlayerWinPhase()
     {
-        Debug.Log($"Phase switched to {currentPhase}");
-
         PlayerDeckManager.Instance.PlayerEndEncounter();
         RewardManager.Instance.ShowRewardScreen();
     }
@@ -130,15 +138,32 @@ public class TurnSystem : MonoBehaviour
     public void PlayerLosePhase()
     {
         SceneController.Instance.LoadSceneByName("MainMenu");
-        Debug.Log($"Phase switched to {currentPhase}");
     }
 
     public void EndTurnButton()
     {
-        SwitchPhase(CombatPhase.TurnEnd);
+        if (!isTurnEndButtonPressed)
+        {
+            SwitchPhase(CombatPhase.TurnEnd);
+            isTurnEndButtonPressed = true;
+        }
+    }
+    
+    private IEnumerator HandleAutoplay()
+    {
+        if (!playArea.enemyHasEntered)
+        {
+            playArea.PlayEnemyCards();
+        }
+
+        if (!playArea.hasPlayed)
+        {
+            playArea.PlayAllCards();
+            Debug.Log("Play cards routine has activated");
+        }
+        yield return new WaitForSeconds(0.01f);
     }
 
-    
     private IEnumerator EndTurnDiscard()
     {
         List<Card> cardsToDiscard = new List<Card>();

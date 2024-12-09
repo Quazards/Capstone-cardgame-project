@@ -14,7 +14,6 @@ public class PlayAreaManager : MonoBehaviour
 
     public List<Card> cardsInPlayArea = new List<Card>();
     public List<Card> playerCardsInPlay = new List<Card>();
-    public List<Card> enemyCardsInPlay = new List<Card>();
     
     private TurnSystem turn;
     private Deck enemyDeck;
@@ -77,15 +76,17 @@ public class PlayAreaManager : MonoBehaviour
             {
                 if (!card.cardRotation.hasFlipped)
                 {
-                    cardsInPlayArea.Add(card);
 
                     if (card.cardData.card_Ownership == CardOwnership.Player)
                     {
                         playerCardsInPlay.Add(card);
                     }
-                    else
+                    else if (card.cardData.card_Ownership == CardOwnership.Enemy)
                     {
-                        enemyCardsInPlay.Add(card);
+                        cardsInPlayArea.Add(card);
+                        CardRotation cardRotation = collision.GetComponent<CardRotation>();
+                        cardRotation.isOverPlayArea = true;
+                        Debug.Log($"Enemy card has entered: {card.cardData.card_Name}, count: {cardsInPlayArea.Count}");
                     }
                 }
             }
@@ -107,26 +108,17 @@ public class PlayAreaManager : MonoBehaviour
         if (collision.CompareTag("PlayingCard"))
         {
             Card card = collision.GetComponent<Card>();
+            CardRotation cardRotation = collision.GetComponent<CardRotation>();
 
             if (card != null && !card.cardRotation.hasFlipped)
             {
-                
-                if (playerCardsInPlay.Count > 1 && card.hasUsedPlayEnergy == true)
-                {
-                    turn.currentEnergy += 2;
-                    card.hasUsedPlayEnergy = false;
-
-                }
-
                 cardsInPlayArea.Remove(card);
+                cardRotation.isOverPlayArea = false;
 
                 if (card.cardData.card_Ownership == CardOwnership.Player)
                 {
+                    card.RefundEnergy(2);
                     playerCardsInPlay.Remove(card);
-                }
-                else
-                {
-                    enemyCardsInPlay.Remove(card);
                 }
 
             }
@@ -145,7 +137,7 @@ public class PlayAreaManager : MonoBehaviour
         {
             foreach (Card card in cardsInPlayArea)
             {
-                card.cardRotation.beginFlip();
+                card.cardRotation.BeginFlip();
             }
             
             turn.currentEnergy -= 1;
@@ -157,7 +149,8 @@ public class PlayAreaManager : MonoBehaviour
         }
     }
 
-    public void PlayAllCards()
+
+    public IEnumerator PlayCardsRoutine()
     {
         if (turn.isMyTurn && !hasPlayed)
         {
@@ -165,16 +158,37 @@ public class PlayAreaManager : MonoBehaviour
             {
                 if (!card.cardRotation.hasFlipped)
                 {
-                    card.cardRotation.beginFlip();
+                    card.cardRotation.BeginFlip();
+                    Debug.Log("Card is flipped");
+                    yield return null;
                 }
             }
             hasPlayed = true;
         }
     }
 
+    public void PlayAllCards()
+    {
+        Debug.Log($"play area state: {hasPlayed}, is my turn: {turn.isMyTurn}");
+        if (turn.isMyTurn && !hasPlayed)
+        {
+            Debug.Log($"has entered if, cards in play area: {cardsInPlayArea.Count}");
+            foreach (Card card in cardsInPlayArea)
+            {
+                Debug.Log($"card's state: {card.cardRotation.hasFlipped}");
+                if (!card.cardRotation.hasFlipped)
+                {
+                    card.cardRotation.BeginFlip();
+                    Debug.Log("Card is flipped");
+                }
+            }
+            hasPlayed = true;
+        }
+    }
+
+    
     public void PlayEnemyCards()
     {
-
         if(enemyDeck != null)
         {
             foreach(Card enemyCard in enemyDeck.handPile)
@@ -183,7 +197,6 @@ public class PlayAreaManager : MonoBehaviour
                 if(enemyCardMovement != null)
                 {
                     enemyCard.transform.SetParent(GameObject.FindGameObjectWithTag("EnemyCardHolder").transform, false);
-
                 }
             }
         }

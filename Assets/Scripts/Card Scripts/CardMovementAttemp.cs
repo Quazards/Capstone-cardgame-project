@@ -8,9 +8,11 @@ public class CardMovementAttemp : MonoBehaviour, IDragHandler, IBeginDragHandler
 {
     [HideInInspector] public Transform newParent;
     [HideInInspector] public bool isPlayerCard = false;
+    [HideInInspector] public bool isDragging = false;
 
     private Canvas cardCanvas;
     private RectTransform rectTransform;
+    private CanvasGroup canvasGroup;
     public Card card;
     private GameObject Hand;
     private CardUI cardUI;
@@ -33,6 +35,7 @@ public class CardMovementAttemp : MonoBehaviour, IDragHandler, IBeginDragHandler
     {
         cardCanvas = GameObject.FindGameObjectWithTag(CANVAS_TAG).GetComponent<Canvas>();
         rectTransform = GetComponent<RectTransform>();
+        canvasGroup = GetComponent<CanvasGroup>();
         card = GetComponent<Card>();
         cardUI = GetComponent<CardUI>();
         cardRotation = GetComponent<CardRotation>();
@@ -42,6 +45,12 @@ public class CardMovementAttemp : MonoBehaviour, IDragHandler, IBeginDragHandler
 
         Hand = GameObject.FindGameObjectWithTag("Hand");
 
+    }
+
+    private void Update()
+    {
+        if(cardRotation.isDragging) 
+            canvasGroup.blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -56,11 +65,12 @@ public class CardMovementAttemp : MonoBehaviour, IDragHandler, IBeginDragHandler
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        newParent = Hand.transform.parent;
-        cardImageComponent.raycastTarget = false;
-        cardBackgroundComponent.raycastTarget = false;
-        cardBorderComponent.raycastTarget = false;
-        cardHandleComponent.raycastTarget = false;
+        newParent = Hand.transform;
+        //cardImageComponent.raycastTarget = false;
+        //cardBackgroundComponent.raycastTarget = false;
+        //cardBorderComponent.raycastTarget = false;
+        //cardHandleComponent.raycastTarget = false;
+        canvasGroup.blocksRaycasts = false;
         cardRotation.isDragging = true;
 
 
@@ -73,16 +83,18 @@ public class CardMovementAttemp : MonoBehaviour, IDragHandler, IBeginDragHandler
     public void OnEndDrag(PointerEventData eventData)
     {
         hoveredObject = eventData.pointerEnter;
-        cardImageComponent.raycastTarget = true;
-        cardBackgroundComponent.raycastTarget = true;
-        cardBorderComponent.raycastTarget = true;
-        cardHandleComponent.raycastTarget = true;
+        //cardImageComponent.raycastTarget = true;
+        //cardBackgroundComponent.raycastTarget = true;
+        //cardBorderComponent.raycastTarget = true;
+        //cardHandleComponent.raycastTarget = true;
+        canvasGroup.blocksRaycasts = true;
         cardRotation.isDragging = false;
 
         if (hoveredObject.CompareTag("PlayerCardHolder") && hoveredObject != null 
             && card.cardData.card_Ownership == CardOwnership.Player && !cardHover.isHovering)
         {
             transform.SetParent(newParent, false);
+            isPlayerCard = false;
 
             if (audioManager != null)
             {
@@ -90,28 +102,12 @@ public class CardMovementAttemp : MonoBehaviour, IDragHandler, IBeginDragHandler
             }
             
         }
-        else if (isPlayerCard && hoveredObject != null)
+        else if (card.cardData.card_Ownership == CardOwnership.Player)
         {
-            transform.SetParent(Hand.transform, false);
-            
+            transform.SetParent(newParent, false);
+            isPlayerCard = false;
         }
 
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.CompareTag("PlayArea"))
-        {
-            cardRotation.isOverPlayArea = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("PlayArea"))
-        {
-            cardRotation.isOverPlayArea = false;
-        }
     }
 
 }

@@ -4639,8 +4639,9 @@ MonoBehaviour:
   battleMusic1: {fileID: 8300000, guid: a06871c280df0fc4ea5d8c394cce2298, type: 3}
   battleMusic2: {fileID: 8300000, guid: ba70b1ec3e6de384190f13b5dc25be72, type: 3}
   cardDrawSound: {fileID: 8300000, guid: 5afb1841f947d7a42be5254eb220aa1f, type: 3}
-  cardFlipSound: {fileID: 8300000, guid: f225c9773c1fb7c46ac8bb7be28ae4ac, type: 3}
+  cardFlipSound: {fileID: 8300000, guid: c49bb28ff1f49ce479a0a23f9f862635, type: 3}
   cardPutSound: {fileID: 8300000, guid: a619ea5888bb8864485d0297a4408805, type: 3}
+  damageTakenSound: {fileID: 8300000, guid: 2d5283a7c99e51545aa17dfda6d91a3d, type: 3}
 --- !u!114 &1251296778
 MonoBehaviour:
   m_ObjectHideFlags: 0

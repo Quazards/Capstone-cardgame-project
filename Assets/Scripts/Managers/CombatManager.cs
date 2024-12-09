@@ -9,12 +9,39 @@ public class CombatManager : MonoBehaviour
     [HideInInspector] public PlayAreaManager playArea;
     [HideInInspector] public PlayerHealth playerHealth;
     [HideInInspector] public EnemyHealth enemyHealth;
-    [HideInInspector] public CameraManager cameraManager;
+    [HideInInspector] public AudioManager audioManager;
+
+    [Header("Health Bar Component")]
     [SerializeField] private HealthBarUI playerHealthBar;
     [SerializeField] private HealthBarUI enemyHealthBar;
 
+    [Header("Shaking Component")]
+    public ObjectShake playerComponent;
+    public ObjectShake enemyComponent;
+
+    [Header("Damage Popup Component")]
+    [SerializeField] private DamagePopup enemyDamagePopup;
+    [SerializeField] private DamagePopup playerDamagePopup;
+    public GameObject enemyPivot;
+    public GameObject playerPivot;
+    public Vector3 enemyUIComponent;
+    public Vector3 playerUIComponent;
+    
+
     public int playerShield = 0;
     public int enemyShield = 0;
+
+    public void OnEnable()
+    {
+        CombatEvents.OnPlayerDamageTaken += OnPlayerDamageTaken;
+        CombatEvents.OnEnemyDamageTaken += OnEnemyDamageTaken;
+    }
+
+    public void OnDisable()
+    {
+        CombatEvents.OnPlayerDamageTaken -= OnPlayerDamageTaken;
+        CombatEvents.OnEnemyDamageTaken -= OnEnemyDamageTaken;
+    }
 
     private void Awake()
     {
@@ -33,7 +60,9 @@ public class CombatManager : MonoBehaviour
         playArea = PlayAreaManager.Instance;
         playerHealth = PlayerHealth.Instance;
         enemyHealth = EnemyHealth.Instance;
-        cameraManager = CameraManager.Instance;
+        audioManager = AudioManager.Instance;
+        enemyUIComponent = enemyPivot.transform.position;
+        playerUIComponent = playerPivot.transform.position;
 
         playerHealthBar.SetMaxHealthBar(playerHealth.playerCurrentHealth, playerHealth.playerMaxHealth);
         StartCoroutine(InitializeEnemyHealth());
@@ -116,9 +145,12 @@ public class CombatManager : MonoBehaviour
                 playerShield = 0;
             }
         }
+
         playerHealth.PlayerTakeDamage(damage);
-        playerHealthBar.SetHealthBar(playerHealth.playerCurrentHealth);
-        cameraManager.ShakeCamera(10f, 1f);
+
+        if(damage != 0)
+            ActivatePlayerDamageTaken(damage);
+        playerDamagePopup.CreatePopup(playerUIComponent, damage.ToString());
 
         foreach (var card in playArea.cardsInPlayArea)
         {
@@ -149,10 +181,12 @@ public class CombatManager : MonoBehaviour
                 enemyShield = 0;
             }
         }
-        enemyHealth.EnemyTakeDamage(damage);
-        enemyHealthBar.SetHealthBar(enemyHealth.enemyCurrentHealth);
-        cameraManager.ShakeCamera(10f, 1f);
 
+        enemyHealth.EnemyTakeDamage(damage);
+
+        if(damage !=  0)
+            ActivateEnemyDamageTaken(damage);
+        enemyDamagePopup.CreatePopup(enemyUIComponent, damage.ToString());
 
         foreach (var card in playArea.cardsInPlayArea)
         {
@@ -185,6 +219,37 @@ public class CombatManager : MonoBehaviour
         yield return new WaitForSeconds(0.01f);
         enemyHealthBar.SetMaxHealthBar(enemyHealth.enemyCurrentHealth, enemyHealth.enemyMaxHealth);
 
+    }
+
+    private void OnPlayerDamageTaken(int damage)
+    {
+        if (audioManager != null)
+            audioManager.PlaySFX(audioManager.damageTakenSound);
+
+        playerHealthBar.SetHealthBar(playerHealth.playerCurrentHealth);
+        playerComponent.ShakeObject(0.2f, 50f);
+        
+
+    }
+
+    private void OnEnemyDamageTaken(int damage)
+    {
+        if (audioManager != null)
+            audioManager.PlaySFX(audioManager.damageTakenSound);
+
+        enemyHealthBar.SetHealthBar(enemyHealth.enemyCurrentHealth);
+        enemyComponent.ShakeObject(0.2f, 50f);
+        
+    }
+
+    private void ActivatePlayerDamageTaken(int damage)
+    {
+        CombatEvents.InvokeOnPlayerDamageTaken(damage);
+    }
+
+    private void ActivateEnemyDamageTaken(int damage)
+    {
+        CombatEvents.InvokeOnEnemyDamageTaken(damage);
     }
 
     //for testing

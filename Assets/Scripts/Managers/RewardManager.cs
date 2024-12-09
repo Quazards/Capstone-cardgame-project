@@ -70,11 +70,11 @@ public class RewardManager : MonoBehaviour
 
             CardRarity selectedRarity;
 
-            if (rarityRoll < rareChance)
+            if (rarityRoll <= rareChance)
             {
                 selectedRarity = CardRarity.Rare;
             }
-            else if (rarityRoll < rareChance + uncommonChance)
+            else if (rarityRoll <= rareChance + uncommonChance)
             {
                 selectedRarity = CardRarity.Uncommon;
             }

@@ -18,25 +18,28 @@ public class CardSlot : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData)
     {
         GameObject droppedItem = eventData.pointerDrag;
+        Card droppedCard = droppedItem.GetComponent<Card>();
         CardMovementAttemp cardMovement = droppedItem.GetComponent<CardMovementAttemp>();
+        CardRotation cardRotation = droppedItem.GetComponent<CardRotation>();
+
         playArea.PlayEnemyCards();
 
-        if (playArea.playerCardsInPlay.Count <= 1)
+        if (playArea.playerCardsInPlay.Count <= 1 && !playArea.hasPlayed)
         {
             cardMovement.newParent = transform;
-            Debug.Log("Card is added to card slot: " + cardMovement.card.cardData.card_Name);
+            cardRotation.isOverPlayArea = true;
+            playArea.cardsInPlayArea.Add(droppedCard);
         }
-        else if (playArea.playerCardsInPlay.Count > 1 && turnSystem.currentEnergy >= 2)
+        else if (playArea.playerCardsInPlay.Count > 1 && turnSystem.currentEnergy >= 2 && !playArea.hasPlayed)
         {
             cardMovement.newParent = transform;
-            turnSystem.currentEnergy -= 2;
-            cardMovement.card.hasUsedPlayEnergy = true;
-            Debug.Log("Card is added to card slot: " + cardMovement.card.cardData.card_Name);
+            droppedCard.ConsumeEnergy(2);
+            cardRotation.isOverPlayArea = true;
+            playArea.cardsInPlayArea.Add(droppedCard);
         }
-        else if (playArea.playerCardsInPlay.Count > 1 && turnSystem.currentEnergy < 2)
+        else if (playArea.playerCardsInPlay.Count > 1 && turnSystem.currentEnergy < 2 || playArea.hasPlayed)
         {
-            Debug.Log("not enough energy to play card");
-            
+            return;
         }
 
     }

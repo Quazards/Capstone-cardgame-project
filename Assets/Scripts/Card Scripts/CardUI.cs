@@ -15,10 +15,12 @@ public class CardUI : MonoBehaviour
     public Image cardTypeBackground;
     public Image cardHandle;
 
-    public TextMeshProUGUI cardName;
+    public TextMeshProUGUI frontCardName;
+    public TextMeshProUGUI backCardName;
     public TextMeshProUGUI frontNumber;
     public TextMeshProUGUI backNumber;
-    public TextMeshProUGUI cardDescription;
+    public TextMeshProUGUI frontCardDescription;
+    public TextMeshProUGUI backCardDescription;
 
     [SerializeField] private Sprite commonAttackBackground;
     [SerializeField] private Sprite uncommonAttackBackground;
@@ -49,6 +51,7 @@ public class CardUI : MonoBehaviour
         if(card != null && card.cardData != null)
         {
             SetCardText();
+            SetTextBasedOnPosition();
             SetCardImage();
             SetTypeBackground();
         }
@@ -56,14 +59,16 @@ public class CardUI : MonoBehaviour
 
     private void SetCardText()
     {
-        cardName.text = card.cardData.card_Name;
+        frontCardName.text = card.cardData.card_Name;
+        backCardName.text = card.cardData.card_Name;
         frontNumber.text = card.tempFrontNumber.ToString();
         backNumber.text = card.tempBackNumber.ToString();
          
         if (card.cardData.card_Description == null)
             return;
 
-        cardDescription.text = card.cardData.card_Description;
+        frontCardDescription.text = card.cardData.card_Description;
+        backCardDescription.text= card.cardData.card_Description;
     }
 
     private void SetCardImage()
@@ -126,7 +131,31 @@ public class CardUI : MonoBehaviour
                 return isAttack ? commonAttackBackground: commonDefendBackground;
         }
     }
-  
+
+    private void SetTextBasedOnPosition()
+    {
+        if(card.cardPosition == CardPosition.Up)
+        {
+            frontNumber.gameObject.SetActive(true);
+            frontCardName.gameObject.SetActive(true);
+            frontCardDescription.gameObject.SetActive(true);
+
+            backNumber.gameObject.SetActive(false);
+            backCardName.gameObject.SetActive(false);
+            backCardDescription.gameObject.SetActive(false);
+        }
+        else if(card.cardPosition == CardPosition.Down)
+        {
+            backNumber.gameObject.SetActive(true);
+            backCardName.gameObject.SetActive(true);
+            backCardDescription.gameObject.SetActive(true);
+
+            frontNumber.gameObject.SetActive(false);
+            frontCardName.gameObject.SetActive(false);
+            backCardDescription.gameObject.SetActive(false);
+        }
+    }
+
     private bool isFrontAttack(ScriptableCard card)
     {
         if (card.front_Type == CardType.Attack) return true;
@@ -143,7 +172,8 @@ public class CardUI : MonoBehaviour
         // Set the card text and images
         cardTypeBackground.sprite = GetRarityBackground(cardData.card_Rarity, isFrontAttack(cardData));
 
-        cardName.text = cardData.card_Name;
+        frontCardName.text = cardData.card_Name;
+        backCardName.text = cardData.card_Name;
         frontNumber.text = cardData.front_Number.ToString();
         backNumber.text = cardData.back_Number.ToString();
         front_CardImage.sprite = cardData.front_Image;
@@ -152,7 +182,8 @@ public class CardUI : MonoBehaviour
         if (cardData.card_Description == null)
             return;
 
-        cardDescription.text = cardData.card_Description;
+        frontCardDescription.text = cardData.card_Description;
+        backCardDescription.text = cardData.card_Description;
 
     }
 }

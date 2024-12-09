@@ -122,6 +122,7 @@ public class Deck : MonoBehaviour
                 if (cardRotation != null)
                 {
                     cardRotation.hasFlipped = false;
+                    cardRotation.isOverPlayArea = false;
                 }
 
                 Vector3 startPosition = drawnCard.transform.position;
@@ -231,7 +232,7 @@ public class Deck : MonoBehaviour
 
     public void AdditionalDraw()
     {
-        if(TurnSystem.Instance.currentEnergy >= 1)
+        if(TurnSystem.Instance.currentEnergy >= 1 && CheckCardAvailability())
         {
             TurnStartDraw();
             TurnSystem.Instance.currentEnergy -= 1;
@@ -247,6 +248,14 @@ public class Deck : MonoBehaviour
         drawAmount += amount;
         TurnStartDraw();
         drawAmount -= amount;
+    }
+
+    private bool CheckCardAvailability()
+    {
+        if(deckPile.Count == 0 && discardPile.Count == 0)
+            return false;
+        else
+            return true;
     }
 
 }

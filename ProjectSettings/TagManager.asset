@@ -19,6 +19,8 @@ TagManager:
   - PlayerDiscardPile
   - EnemyDeckPile
   - EnemyDiscardPile
+  - EnemyUIComponent
+  - PlayerUIComponent
   layers:
   - Default
   - TransparentFX

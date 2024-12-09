@@ -16,6 +16,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip cardDrawSound;
     public AudioClip cardFlipSound;
     public AudioClip cardPutSound;
+    public AudioClip damageTakenSound;
 
     public static AudioManager Instance;
 

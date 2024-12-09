@@ -38,7 +38,7 @@ public class EventSystem : MonoBehaviour
 
     [HideInInspector] public void lonelyBag()
     {
-        randomID = Random.Range(1, 4);
+        randomID = Random.Range(1, 3);
         switch (randomID)
         {
             case 1:

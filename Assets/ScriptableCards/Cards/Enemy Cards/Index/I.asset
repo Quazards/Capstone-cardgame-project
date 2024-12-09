@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7113b6c0abbb02049aee93a8a47489cb, type: 3}
   m_Name: I
   m_EditorClassIdentifier: 
-  <card_Name>k__BackingField: 1
+  <card_Name>k__BackingField: I
   <front_Number>k__BackingField: 1
   <back_Number>k__BackingField: 9
   <front_Image>k__BackingField: {fileID: 8620706835602798527, guid: e2bf8a778177be14bb4ffaf09a8b39f6, type: 3}
@@ -20,6 +20,6 @@ MonoBehaviour:
   <front_Type>k__BackingField: 0
   <back_Type>k__BackingField: 1
   <card_Ownership>k__BackingField: 1
-  <card_Rarity>k__BackingField: 0
+  <card_Rarity>k__BackingField: 2
   card_Effect: []
   <card_Description>k__BackingField: 

@@ -7,7 +7,7 @@ public class Card : MonoBehaviour
     [field: SerializeField]public ScriptableCard cardData { get; private set; }
 
     public CardPosition cardPosition;
-    public bool hasUsedPlayEnergy = false;
+    public int storedEnergy = 0;
 
     [HideInInspector] public CardRotation cardRotation;
 
@@ -63,5 +63,18 @@ public class Card : MonoBehaviour
         isBuffed = false;
 
         GetComponent<CardUI>().SetCardUI();
+    }
+
+    public void ConsumeEnergy(int amount)
+    {
+        TurnSystem.Instance.currentEnergy -= amount;
+        storedEnergy += amount;
+    }
+
+    public void RefundEnergy(int amount)
+    {
+        int refundedEnergy = Mathf.Clamp(storedEnergy, 0, amount);
+        TurnSystem.Instance.currentEnergy += refundedEnergy;
+        storedEnergy -= refundedEnergy;
     }
 }
