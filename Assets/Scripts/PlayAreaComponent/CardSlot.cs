@@ -28,21 +28,19 @@ public class CardSlot : MonoBehaviour, IDropHandler
         {
             cardMovement.newParent = transform;
             cardRotation.isOverPlayArea = true;
-            playArea.cardsInPlayArea.Add(droppedCard);
         }
         else if (playArea.playerCardsInPlay.Count > 1 && turnSystem.currentEnergy >= 2 && !playArea.hasPlayed)
         {
             cardMovement.newParent = transform;
             droppedCard.ConsumeEnergy(2);
             cardRotation.isOverPlayArea = true;
-            playArea.cardsInPlayArea.Add(droppedCard);
         }
         else if (playArea.playerCardsInPlay.Count > 1 && turnSystem.currentEnergy < 2 || playArea.hasPlayed)
         {
             return;
         }
 
+        playArea.CheckCardsInPlayArea();
     }
-
 
 }

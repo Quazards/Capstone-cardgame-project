@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Discard_pile_button_0: -3356823609587351136
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

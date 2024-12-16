@@ -9,6 +9,6 @@ public class DeckSizeIndicator : MonoBehaviour
 
     private void Update()
     {
-        deckSizeIndicator.text = TurnSystem.Instance.playerDeckCountText.text;
+        //deckSizeIndicator.text = TurnSystem.Instance.playerDeckCountText.text;
     }
 }

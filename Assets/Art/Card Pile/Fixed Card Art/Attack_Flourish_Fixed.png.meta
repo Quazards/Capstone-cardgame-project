@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Attack_Flourish_Fixed_0: 8620706835602798527
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

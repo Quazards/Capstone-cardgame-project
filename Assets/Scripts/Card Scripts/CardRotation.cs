@@ -63,6 +63,11 @@ public class CardRotation : MonoBehaviour
                     currentCardUI.frontCardName.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
                     currentCardUI.frontCardDescription.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
                 }
+                else if (currentPosition == CardPosition.Up)
+                {
+                    currentCardUI.backCardName.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+                    currentCardUI.frontCardDescription.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
+                }
                 currentCard.cardPosition = (currentPosition == CardPosition.Up) ? CardPosition.Down : CardPosition.Up;
             }
 

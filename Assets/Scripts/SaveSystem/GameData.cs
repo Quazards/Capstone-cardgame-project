@@ -12,6 +12,7 @@ public class GameData : ISerializationCallbackReceiver
     public bool isStarterDeckInitialized = false;
     public int encounterCount;
     public bool isFirstEncounter;
+    public int loopCount;
 
     [SerializeField] private int resolutionWidth;
     [SerializeField] private int resolutionHeight;
@@ -24,6 +25,7 @@ public class GameData : ISerializationCallbackReceiver
         this.isStarterDeckInitialized = false;
         this.encounterCount = 0;
         this.isFirstEncounter = true;
+        this.loopCount = 0;
     }
 
     public void OnBeforeSerialize()

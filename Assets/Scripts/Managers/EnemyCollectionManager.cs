@@ -7,8 +7,9 @@ public class EnemyCollectionManager : MonoBehaviour
 {
     public static EnemyCollectionManager Instance;
 
-    [SerializeField] private AllEnemyStatsCollection allEnemyColletion;
+    public EnemyStats currentEnemy;
 
+    [SerializeField] private AllEnemyStatsCollection allEnemyColletion;
     public EnemyHealth enemyHealth;
     public Deck enemyDeck;
 
@@ -90,14 +91,15 @@ public class EnemyCollectionManager : MonoBehaviour
         if(selectedEnemyStat != null)
         {
             int newMaxHealth = selectedEnemyStat.maxHealth;
-            enemyHealth.SetEnemyMaxHealth(newMaxHealth);
+            enemyHealth.SetEnemyMaxHealth(newMaxHealth + (DataPersistenceManager.instance.gameData.loopCount * 10));
 
             enemyDeck.ClearAll();
             enemyDeck.currentDeck = selectedEnemyStat.deckList;
             enemyDeck.drawAmount = selectedEnemyStat.enemyDrawAmount;
 
+            currentEnemy = selectedEnemyStat;
 
-            Debug.Log($"Assigned {selectedEnemyStat.enemyType} with max health: {selectedEnemyStat.maxHealth} and decklist: {selectedEnemyStat.deckList}");
+            Debug.Log($"Assigned {selectedEnemyStat.enemyType} {selectedEnemyStat.name} with max health: {selectedEnemyStat.maxHealth} and decklist: {selectedEnemyStat.deckList}");
         }
         else
             Debug.LogWarning("No enemy stats available for the selected type.");

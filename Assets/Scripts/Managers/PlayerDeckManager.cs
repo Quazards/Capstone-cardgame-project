@@ -5,15 +5,9 @@ using UnityEngine;
 public class PlayerDeckManager : MonoBehaviour, IDataPersistence
 {
     public static PlayerDeckManager Instance;
-
     public Deck playerDeck;
-
-    public int startEncounterDraw = 2;
-
     [SerializeField] private CardPile starterDeck;
-
     [SerializeField] private CardPile tempDeck;
-
     public List<ScriptableCard> globalDeck = new();
     [HideInInspector] public bool isStarterDeckInitialized = false;
 
@@ -63,9 +57,9 @@ public class PlayerDeckManager : MonoBehaviour, IDataPersistence
         }
 
         playerDeck.InstantiateDeck();
-        playerDeck.drawAmount += startEncounterDraw;
+        playerDeck.drawAmount = 4;
         playerDeck.TurnStartDraw();
-        playerDeck.drawAmount -= startEncounterDraw;
+        playerDeck.drawAmount = 1;
     }
 
     public void PlayerEndEncounter()

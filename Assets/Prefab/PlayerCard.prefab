@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: -7594086362693014844}
   - component: {fileID: 394995321813535347}
   - component: {fileID: 3874696995914183482}
+  - component: {fileID: 692940579472468357}
   m_Layer: 6
   m_Name: PlayerCard
   m_TagString: PlayingCard
@@ -170,6 +171,7 @@ MonoBehaviour:
   tempFrontNumber: 0
   tempBackNumber: 0
   isBuffed: 0
+  keepCard: 0
 --- !u!61 &921839402876591617
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -317,6 +319,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &692940579472468357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959388628649775361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a131e177753c9f4c92f75a9a647ed3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3464788481304663975
 GameObject:
   m_ObjectHideFlags: 0

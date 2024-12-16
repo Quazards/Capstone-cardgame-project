@@ -22,8 +22,8 @@ public class PlayAreaManager : MonoBehaviour
     public bool enemyHasEntered = false;
 
     //Card Holders
-    [SerializeField] Transform playerCardHolder;
-    [SerializeField] Transform enemyCardHolder;
+    [SerializeField] GameObject playerCardHolder;
+    [SerializeField] GameObject enemyCardHolder;
 
     private void Awake()
     {
@@ -77,24 +77,17 @@ public class PlayAreaManager : MonoBehaviour
                 if (!card.cardRotation.hasFlipped)
                 {
 
-                    if (card.cardData.card_Ownership == CardOwnership.Player)
+                    if (card.cardData.card_Ownership == CardOwnership.Player && turn.currentEnergy >= 2)
                     {
                         playerCardsInPlay.Add(card);
-                    }
-                    else if (card.cardData.card_Ownership == CardOwnership.Enemy)
-                    {
-                        cardsInPlayArea.Add(card);
-                        CardRotation cardRotation = collision.GetComponent<CardRotation>();
-                        cardRotation.isOverPlayArea = true;
-                        Debug.Log($"Enemy card has entered: {card.cardData.card_Name}, count: {cardsInPlayArea.Count}");
                     }
                 }
             }
             else
             {
-              return;
+                return;
             }
-            
+
 
             if (cardsInPlayArea.Count >= 1 && !hasPlayed)
             {
@@ -112,7 +105,6 @@ public class PlayAreaManager : MonoBehaviour
 
             if (card != null && !card.cardRotation.hasFlipped)
             {
-                cardsInPlayArea.Remove(card);
                 cardRotation.isOverPlayArea = false;
 
                 if (card.cardData.card_Ownership == CardOwnership.Player)
@@ -123,12 +115,24 @@ public class PlayAreaManager : MonoBehaviour
 
             }
 
+            CheckCardsInPlayArea();
+
             if (cardsInPlayArea.Count == 0)
             {
                 playButton.SetActive(false);
-                //flipButton.SetActive(false);
             }
         }
+    }
+
+    public void CheckCardsInPlayArea()
+    {
+        cardsInPlayArea.Clear();
+        Card[] playerCards = playerCardHolder.GetComponentsInChildren<Card>();
+        Card[] enemyCards = enemyCardHolder.GetComponentsInChildren<Card>();
+        cardsInPlayArea.AddRange(playerCards);
+        cardsInPlayArea.AddRange(enemyCards);
+
+        Debug.Log($"Cards in play area: {cardsInPlayArea.Count}");
     }
 
     private void FlipAllCards()
@@ -149,37 +153,16 @@ public class PlayAreaManager : MonoBehaviour
         }
     }
 
-
-    public IEnumerator PlayCardsRoutine()
-    {
-        if (turn.isMyTurn && !hasPlayed)
-        {
-            foreach (Card card in cardsInPlayArea)
-            {
-                if (!card.cardRotation.hasFlipped)
-                {
-                    card.cardRotation.BeginFlip();
-                    Debug.Log("Card is flipped");
-                    yield return null;
-                }
-            }
-            hasPlayed = true;
-        }
-    }
-
     public void PlayAllCards()
     {
-        Debug.Log($"play area state: {hasPlayed}, is my turn: {turn.isMyTurn}");
+        CheckCardsInPlayArea();
         if (turn.isMyTurn && !hasPlayed)
         {
-            Debug.Log($"has entered if, cards in play area: {cardsInPlayArea.Count}");
             foreach (Card card in cardsInPlayArea)
             {
-                Debug.Log($"card's state: {card.cardRotation.hasFlipped}");
                 if (!card.cardRotation.hasFlipped)
                 {
                     card.cardRotation.BeginFlip();
-                    Debug.Log("Card is flipped");
                 }
             }
             hasPlayed = true;
@@ -193,11 +176,9 @@ public class PlayAreaManager : MonoBehaviour
         {
             foreach(Card enemyCard in enemyDeck.handPile)
             {
-                CardMovementAttemp enemyCardMovement = enemyCard.GetComponent<CardMovementAttemp>();
-                if(enemyCardMovement != null)
-                {
-                    enemyCard.transform.SetParent(GameObject.FindGameObjectWithTag("EnemyCardHolder").transform, false);
-                }
+                CardRotation cardRotation = enemyCard.GetComponent<CardRotation>();
+                cardRotation.isOverPlayArea = true;
+                enemyCard.transform.SetParent(enemyCardHolder.transform, false);
             }
         }
 

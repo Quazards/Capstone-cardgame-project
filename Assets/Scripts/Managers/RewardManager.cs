@@ -94,10 +94,12 @@ public class RewardManager : MonoBehaviour
                 selectedCards.Add(selectedCard);
             }
 
+            Debug.Log($"selected cards amount: {selectedCards.Count}, selected card: {selectedCard}");
+
             loopCount++;
-            if (loopCount > 10)
+            if (loopCount > 50)
             {
-                Debug.Log("Loop exceeded 10 times");
+                Debug.Log("Loop exceeded 50 times");
                 break;
             }
         }

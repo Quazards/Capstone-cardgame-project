@@ -14,6 +14,7 @@ public class Card : MonoBehaviour
     public int tempFrontNumber;
     public int tempBackNumber;
     public bool isBuffed = false;
+    public bool keepCard = false;
 
     private void Awake()
     {

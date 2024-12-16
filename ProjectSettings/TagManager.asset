@@ -21,6 +21,10 @@ TagManager:
   - EnemyDiscardPile
   - EnemyUIComponent
   - PlayerUIComponent
+  - SecondaryCanvas
+  - KeepArea
+  - KeepPanel
+  - PileDisplay
   layers:
   - Default
   - TransparentFX

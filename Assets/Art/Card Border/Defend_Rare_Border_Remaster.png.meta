@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Defend_Rare_Border_Remaster_0: -7377784533752186142
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

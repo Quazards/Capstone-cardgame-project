@@ -130,7 +130,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Reroll_Button_Revamp_0: -8224710983824816069
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -74,7 +74,8 @@ public enum CombatPhase
     TurnEnd,
     PlayerWin,
     PlayerLose,
-    CombatStart
+    CombatStart,
+    CardKeep
 }
 
 #endregion

@@ -55,7 +55,8 @@ public class CardMovementAttemp : MonoBehaviour, IDragHandler, IBeginDragHandler
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (TurnSystem.Instance.isMyTurn && !cardRotation.hasFlipped && isPlayerCard)
+        if (TurnSystem.Instance.isMyTurn && !cardRotation.hasFlipped && isPlayerCard 
+            && TurnSystem.Instance.currentPhase != CombatPhase.CardKeep)
         {
             rectTransform.anchoredPosition += (eventData.delta / cardCanvas.scaleFactor);
             transform.SetParent(cardCanvas.transform, true);
@@ -65,11 +66,10 @@ public class CardMovementAttemp : MonoBehaviour, IDragHandler, IBeginDragHandler
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (turnSystem.currentPhase == CombatPhase.CardKeep)
+            return;
+
         newParent = Hand.transform;
-        //cardImageComponent.raycastTarget = false;
-        //cardBackgroundComponent.raycastTarget = false;
-        //cardBorderComponent.raycastTarget = false;
-        //cardHandleComponent.raycastTarget = false;
         canvasGroup.blocksRaycasts = false;
         cardRotation.isDragging = true;
 
@@ -82,11 +82,10 @@ public class CardMovementAttemp : MonoBehaviour, IDragHandler, IBeginDragHandler
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (turnSystem.currentPhase == CombatPhase.CardKeep)
+            return;
+
         hoveredObject = eventData.pointerEnter;
-        //cardImageComponent.raycastTarget = true;
-        //cardBackgroundComponent.raycastTarget = true;
-        //cardBorderComponent.raycastTarget = true;
-        //cardHandleComponent.raycastTarget = true;
         canvasGroup.blocksRaycasts = true;
         cardRotation.isDragging = false;
 

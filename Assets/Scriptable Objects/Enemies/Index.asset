@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5246ade7e815a9742a5f696cc114f8b8, type: 3}
   m_Name: Index
   m_EditorClassIdentifier: 
-  <enemyName>k__BackingField: Index
+  <enemyName>k__BackingField: The Index
   <maxHealth>k__BackingField: 77
   <deckList>k__BackingField: {fileID: 11400000, guid: 8dd1df1836aa8944e8651f5decc9c2f9, type: 2}
   <enemyType>k__BackingField: 2

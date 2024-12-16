@@ -11,20 +11,31 @@ public class CardHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public bool isNotCardDisplay = true;
 
     private CardRotation cardRotation;
+    private Canvas cardCanvas;
+    private GameObject playerHand;
+    private GameObject enemyHand;
+    private Card currentCard;
+    private TurnSystem turn;
     
     private void Start()
     {
         initialScale = Vector3.one;
         cardRotation = GetComponent<CardRotation>();
+        currentCard = GetComponent<Card>();
+        cardCanvas = GameObject.FindGameObjectWithTag("CardCanvas").GetComponent<Canvas>();
+        playerHand = GameObject.FindGameObjectWithTag("Hand");
+        enemyHand = GameObject.FindGameObjectWithTag("EnemyArea");
+        turn = TurnSystem.Instance;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (isNotCardDisplay)
+        if (turn.currentPhase != CombatPhase.CardKeep)
         {
-            if (!cardRotation.isDragging)
-            {
-                isPointerOverCard = true;
+            isPointerOverCard = true;
+
+            if (isNotCardDisplay && !cardRotation.isDragging)
+            {   
                 isHovering = true;
                 transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
             }
@@ -33,8 +44,15 @@ public class CardHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        isPointerOverCard = false;
-        isHovering = false;
-        transform.localScale = initialScale;
+        if (turn.currentPhase != CombatPhase.CardKeep)
+        {
+            isPointerOverCard = false;
+
+            if (isNotCardDisplay)
+            {
+                isHovering = false;
+                transform.localScale = initialScale;
+            }
+        }
     }
 }

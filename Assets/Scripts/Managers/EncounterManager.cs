@@ -6,6 +6,7 @@ public class EncounterManager : MonoBehaviour, IDataPersistence
 {
     public static EncounterManager Instance;
     public int encounterCount = 0;
+    public int loopCount = 0;
     public bool isFirstEncounter = true;
 
     private EnemyCollectionManager enemyCollectionManager;
@@ -53,6 +54,12 @@ public class EncounterManager : MonoBehaviour, IDataPersistence
         if (!isFirstEncounter)
         {
             encounterCount++;
+
+            if (encounterCount > 5)
+            {
+                encounterCount = 0;
+                loopCount++;
+            }
         }
 
         EnemyType enemyType = GetEnemyType(encounterCount);
@@ -65,29 +72,28 @@ public class EncounterManager : MonoBehaviour, IDataPersistence
         TurnSystem.Instance.SwitchPhase(CombatPhase.CombatStart);
         isFirstEncounter = false;
 
-        Debug.Log($"Encounter count: {DataPersistenceManager.instance.gameData.encounterCount}");
-
-        if (encounterCount >= 5)
-        {
-            encounterCount = 0;
-        }
+        Debug.Log($"Encounter count: {DataPersistenceManager.instance.gameData.encounterCount}/{encounterCount}, " +
+            $"loop Count: {DataPersistenceManager.instance.gameData.loopCount}/{loopCount}");
     }
 
     public void ResetEncounterState()
     {
         this.encounterCount = 0;
+        this.loopCount = 0;
         isFirstEncounter = true;
     }
 
     public void LoadData(GameData data)
     {
         this.encounterCount = data.encounterCount;
+        this.loopCount = data.loopCount;
         this.isFirstEncounter = data.isFirstEncounter;
     }
 
     public void SaveData(ref GameData data)
     {
         data.encounterCount = this.encounterCount;
+        data.loopCount = this.loopCount;
         data.isFirstEncounter = this.isFirstEncounter;
     }
 }

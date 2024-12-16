@@ -22,11 +22,6 @@ public class CombatManager : MonoBehaviour
     [Header("Damage Popup Component")]
     [SerializeField] private DamagePopup enemyDamagePopup;
     [SerializeField] private DamagePopup playerDamagePopup;
-    public GameObject enemyPivot;
-    public GameObject playerPivot;
-    public Vector3 enemyUIComponent;
-    public Vector3 playerUIComponent;
-    
 
     public int playerShield = 0;
     public int enemyShield = 0;
@@ -61,8 +56,6 @@ public class CombatManager : MonoBehaviour
         playerHealth = PlayerHealth.Instance;
         enemyHealth = EnemyHealth.Instance;
         audioManager = AudioManager.Instance;
-        enemyUIComponent = enemyPivot.transform.position;
-        playerUIComponent = playerPivot.transform.position;
 
         playerHealthBar.SetMaxHealthBar(playerHealth.playerCurrentHealth, playerHealth.playerMaxHealth);
         StartCoroutine(InitializeEnemyHealth());
@@ -150,7 +143,7 @@ public class CombatManager : MonoBehaviour
 
         if(damage != 0)
             ActivatePlayerDamageTaken(damage);
-        playerDamagePopup.CreatePopup(playerUIComponent, damage.ToString());
+        playerDamagePopup.CreatePopup(damage.ToString());
 
         foreach (var card in playArea.cardsInPlayArea)
         {
@@ -186,7 +179,7 @@ public class CombatManager : MonoBehaviour
 
         if(damage !=  0)
             ActivateEnemyDamageTaken(damage);
-        enemyDamagePopup.CreatePopup(enemyUIComponent, damage.ToString());
+        enemyDamagePopup.CreatePopup(damage.ToString());
 
         foreach (var card in playArea.cardsInPlayArea)
         {
@@ -216,7 +209,7 @@ public class CombatManager : MonoBehaviour
     }
     private IEnumerator InitializeEnemyHealth()
     {
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSeconds(0.001f);
         enemyHealthBar.SetMaxHealthBar(enemyHealth.enemyCurrentHealth, enemyHealth.enemyMaxHealth);
 
     }

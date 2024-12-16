@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class Deck : MonoBehaviour
 {
@@ -10,7 +11,6 @@ public class Deck : MonoBehaviour
     [SerializeField] private Canvas cardCanvas;
     private TurnSystem turnSystem;
     private AudioManager audioManager;
-
 
     public int drawAmount = 1;
 
@@ -74,6 +74,24 @@ public class Deck : MonoBehaviour
         StartCoroutine(DrawCardsWithAnimation(drawAmount));
     }
 
+    public IEnumerator DiscardHard()
+    {
+        List<Card> cardsToDiscard = new List<Card>();
+
+        foreach(Card card in handPile)
+        {
+            if (!card.keepCard)
+            {
+                cardsToDiscard.Add(card);
+            }
+        }
+
+        foreach(Card card in cardsToDiscard)
+        {
+            yield return StartCoroutine(Discard(card));
+        }
+    }
+
     public IEnumerator Discard(Card card)
     {
         if (handPile.Contains(card))
@@ -117,6 +135,7 @@ public class Deck : MonoBehaviour
                 deckPile.RemoveAt(0);
 
                 drawnCard.gameObject.SetActive(true);
+                drawnCard.keepCard = false;
 
                 var cardRotation = drawnCard.GetComponent<CardRotation>();
                 if (cardRotation != null)
@@ -143,11 +162,15 @@ public class Deck : MonoBehaviour
 
                 if (drawnCard.cardData.card_Ownership == CardOwnership.Player)
                 {
-                    drawnCard.transform.SetParent(GameObject.FindGameObjectWithTag("Hand").transform);
+                    GameObject hand = GameObject.FindGameObjectWithTag("Hand");
+                    drawnCard.transform.SetParent(hand.transform, true);
+                    var handLayout = hand.GetComponent<HorizontalLayoutGroup>();
+                    handLayout.childControlHeight = true;
+                    handLayout.childControlHeight = false;
                 }
                 else if (drawnCard.cardData.card_Ownership == CardOwnership.Enemy)
                 {
-                    drawnCard.transform.SetParent(GameObject.FindGameObjectWithTag("EnemyArea").transform);
+                    drawnCard.transform.SetParent(GameObject.FindGameObjectWithTag("EnemyArea").transform, true);
                 }
 
                 if (audioManager != null)
@@ -158,30 +181,6 @@ public class Deck : MonoBehaviour
         }
     }
 
-    private IEnumerator DiscardCardsWithAnimation(Card card)
-    {
-        if (handPile.Contains(card))
-        {
-            handPile.Remove(card);
-            discardPile.Add(card);
-
-            Vector3 startPosition = card.transform.position;
-            Vector3 endPosition = card.transform.position;
-
-            if (card.cardData.card_Ownership == CardOwnership.Player)
-            {
-                endPosition = GameObject.FindGameObjectWithTag("PlayerDiscardPile").transform.position;
-            }
-            else if (card.cardData.card_Ownership == CardOwnership.Enemy)
-            {
-                endPosition = GameObject.FindGameObjectWithTag("EnemyDiscardPile").transform.position;
-            }
-
-            yield return StartCoroutine(CardDiscardAnimation(card, startPosition, endPosition));
-
-            card.gameObject.SetActive(false);
-        }
-    }
 
     private IEnumerator CardDrawAnimation(Card card, Vector3 startPosition, Vector3 endPosition)
     {
@@ -227,7 +226,6 @@ public class Deck : MonoBehaviour
 
         card.transform.position = endPosition;
         card.transform.localScale = Vector3.zero;
-        //card.gameObject.SetActive(false);
     }
 
     public void AdditionalDraw()
