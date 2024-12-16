@@ -5,10 +5,12 @@ using UnityEngine;
 public class EnemyScalingManager : MonoBehaviour
 {
     public static EnemyScalingManager Instance;
+
     private TurnSystem turn;
-    private DataPersistenceManager dataPersistence;
+    private EncounterManager encounterManager;
     public int enemyScaling = 0;
     public bool hasScaled = false;
+    public List<Card> cardsToScale = new List<Card>();
 
     private void Awake()
     {
@@ -24,7 +26,7 @@ public class EnemyScalingManager : MonoBehaviour
 
     private void Start()
     {
-        dataPersistence = DataPersistenceManager.instance;
+        encounterManager = EncounterManager.Instance;
         turn = TurnSystem.Instance;
     }
 
@@ -37,11 +39,12 @@ public class EnemyScalingManager : MonoBehaviour
     {
         if (!hasScaled)
         {
+            AddCardsToList();
             ResetScaledStats();
-            foreach (Card card in turn.enemyDeck.handPile)
+            foreach (Card card in cardsToScale)
             {
-                card.tempFrontNumber = card.cardData.front_Number + (dataPersistence.gameData.loopCount);
-                card.tempBackNumber = card.cardData.back_Number + (dataPersistence.gameData.loopCount);
+                card.tempFrontNumber = card.cardData.front_Number + (encounterManager.loopCount);
+                card.tempBackNumber = card.cardData.back_Number + (encounterManager.loopCount);
             }
             hasScaled = true;
         }
@@ -49,10 +52,24 @@ public class EnemyScalingManager : MonoBehaviour
 
     private void ResetScaledStats()
     {
-        foreach(Card card in turn.enemyDeck.handPile)
+        foreach(Card card in cardsToScale)
         {
             card.tempFrontNumber = card.cardData.front_Number;
             card.tempBackNumber = card.cardData.back_Number;
+        }
+    }
+
+    private void AddCardsToList()
+    {
+        cardsToScale.Clear();
+
+        foreach (Card card in turn.enemyDeck.deckPile)
+        {
+            cardsToScale.Add(card);
+        }
+        foreach (Card card in turn.enemyDeck.handPile)
+        {
+            cardsToScale.Add(card);
         }
     }
 }

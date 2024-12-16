@@ -17,9 +17,11 @@ public class PlayAreaManager : MonoBehaviour
     
     private TurnSystem turn;
     private Deck enemyDeck;
+    private CombatManager combatManager;
 
     public bool hasPlayed = false;
     public bool enemyHasEntered = false;
+
 
     //Card Holders
     [SerializeField] GameObject playerCardHolder;
@@ -40,12 +42,14 @@ public class PlayAreaManager : MonoBehaviour
     private void Start()
     {
         turn = TurnSystem.Instance;
+        combatManager = CombatManager.Instance;
         enemyDeck = TurnSystem.Instance.enemyDeck.GetComponent<Deck>();
 
         //play button
         playButton.SetActive(false);
         playButton.GetComponentInChildren<TextMeshProUGUI>().text = "Play";
         playButton.GetComponent<Button>().onClick.AddListener(PlayAllCards);
+
 
         //flip button
         flipButton.SetActive(false);
@@ -137,20 +141,21 @@ public class PlayAreaManager : MonoBehaviour
 
     private void FlipAllCards()
     {
+        CheckCardsInPlayArea();
         if(turn.isMyTurn && turn.currentEnergy >= 1)
         {
             foreach (Card card in cardsInPlayArea)
             {
                 card.cardRotation.BeginFlip();
             }
-            
             turn.currentEnergy -= 1;
-
+            
         }
         else
         {
             return;
         }
+        combatManager.TallyNumbers();
     }
 
     public void PlayAllCards()
@@ -166,10 +171,12 @@ public class PlayAreaManager : MonoBehaviour
                 }
             }
             hasPlayed = true;
+            
         }
+        combatManager.TallyNumbers();
+ 
     }
 
-    
     public void PlayEnemyCards()
     {
         if(enemyDeck != null)

@@ -96,6 +96,7 @@ public class Deck : MonoBehaviour
     {
         if (handPile.Contains(card))
         {
+            card.ResetStoredEnergy();
             handPile.Remove(card);
             discardPile.Add(card);
 
@@ -136,6 +137,7 @@ public class Deck : MonoBehaviour
 
                 drawnCard.gameObject.SetActive(true);
                 drawnCard.keepCard = false;
+                drawnCard.ResetStoredEnergy();
 
                 var cardRotation = drawnCard.GetComponent<CardRotation>();
                 if (cardRotation != null)

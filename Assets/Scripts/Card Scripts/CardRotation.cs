@@ -103,7 +103,7 @@ public class CardRotation : MonoBehaviour
 
             if(i == 90)
             {
-                currentCard.cardPosition = (random < 0.5) ? CardPosition.Down : CardPosition.Up;
+                
                 if (currentCard.cardPosition != CardPosition.Down)
                 {
                     currentCardUI.frontCardName.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
@@ -115,6 +115,7 @@ public class CardRotation : MonoBehaviour
                     currentCardUI.backCardName.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
                     currentCardUI.backCardDescription.transform.rotation = Quaternion.Euler(0f, 270f, 0f);
                 }
+                currentCard.cardPosition = (random < 0.5) ? CardPosition.Down : CardPosition.Up;
             }
 
             yield return new WaitForSeconds(0.01f);
@@ -134,11 +135,6 @@ public class CardRotation : MonoBehaviour
         currentCardUI.backCardName.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
         currentCardUI.backCardDescription.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
-
-    //public void BeginFlip()
-    //{
-    //    StartCoroutine(FlipCoroutine());
-    //}
 
     public void BeginFlip()
     {

@@ -78,4 +78,9 @@ public class Card : MonoBehaviour
         TurnSystem.Instance.currentEnergy += refundedEnergy;
         storedEnergy -= refundedEnergy;
     }
+
+    public void ResetStoredEnergy()
+    {
+        storedEnergy = 0;
+    }
 }

@@ -577,7 +577,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1879,6 +1879,7 @@ MonoBehaviour:
   cardFlipSound: {fileID: 8300000, guid: c49bb28ff1f49ce479a0a23f9f862635, type: 3}
   cardPutSound: {fileID: 8300000, guid: a619ea5888bb8864485d0297a4408805, type: 3}
   damageTakenSound: {fileID: 8300000, guid: 2d5283a7c99e51545aa17dfda6d91a3d, type: 3}
+  zeroDamageSound: {fileID: 8300000, guid: 717e99c63dbf82b43b11d246cb5591c2, type: 3}
 --- !u!114 &1251296778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2483,6 +2484,7 @@ MonoBehaviour:
     isStarterDeckInitialized: 0
     encounterCount: 0
     isFirstEncounter: 1
+    loopCount: 0
     resolutionWidth: 1920
     resolutionHeight: 1080
 --- !u!114 &1864868303
@@ -2510,7 +2512,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDeck: {fileID: 110041597}
-  startEncounterDraw: 2
   starterDeck: {fileID: 11400000, guid: cd0593b5dc141e64b9772f5f4c38ca6a, type: 2}
   tempDeck: {fileID: 11400000, guid: ef1e4e1bd21d3d347a26ce088e60ac37, type: 2}
   globalDeck: []
@@ -2528,6 +2529,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   encounterCount: 0
+  loopCount: 0
   isFirstEncounter: 1
 --- !u!1 &1909409012
 GameObject:

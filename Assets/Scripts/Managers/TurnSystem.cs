@@ -44,13 +44,12 @@ public class TurnSystem : MonoBehaviour
         {
             Instance = this;
         }
+        enemyScaling = EnemyScalingManager.Instance;
     }
 
     private void Start()
     {
         combatManager = CombatManager.Instance;
-        enemyScaling = EnemyScalingManager.Instance;
-        
     }
 
     private void Update()
@@ -91,6 +90,7 @@ public class TurnSystem : MonoBehaviour
         isMyTurn = true;
         startEnergy = maxEnergy;
         currentEnergy = startEnergy;
+        enemyScaling.hasScaled = false;
     }
 
     public void TurnEndPhase()
@@ -110,7 +110,6 @@ public class TurnSystem : MonoBehaviour
         turnStart = true;
         isTurnEndButtonPressed = false;
         isCardKeepButtonPressed = false;
-        enemyScaling.hasScaled = false;
 
         currentEnergy = startEnergy;
         turnCount += 1;
@@ -121,6 +120,10 @@ public class TurnSystem : MonoBehaviour
         enemyDeck.TurnStartDraw();
 
         ExecuteScheduledEffect();
+        foreach (Card card in playerDeck.handPile)
+        {
+            card.ResetStoredEnergy();
+        }
     }
 
     public void PlayerWinPhase()
